@@ -1,4 +1,4 @@
-import { makeWorld, axialDistance, tileKey, TERRAINS, ENERGY_MAX, MAX_JOURNEY, energyOf, validateWorld, simulateJourney } from './engine.mjs';
+import { makeWorld, axialDistance, tileKey, TERRAINS, ENERGY_MAX, MAX_JOURNEY, energyOf, hungerOf, validateWorld, simulateJourney } from './engine.mjs';
 import { cachedWorld, cacheWorld, saveDraft, clearDraft, restoreDraft } from './persistence.mjs';
 import { buildInterpreterPrompt, chatDestination } from './chat-link.mjs';
 import { ATLAS_CELLS, visibleHexes, observedHex, discoverySummary } from './world-view.mjs';
@@ -328,6 +328,14 @@ function drawAll() {
   $('energy-value').textContent = `${energy}/${ENERGY_MAX}`;
   $('energy-meter').value = energy;
   $('energy-meter').max = ENERGY_MAX;
+  const hunger = hungerOf(world);
+  $('hunger-value').textContent = hunger + '/3';
+  $('hunger-note').textContent = hunger >= 2
+    ? 'Fome acumulada reduz a energia recuperada no próximo descanso. Faça uma refeição para recuperar forças.'
+    : hunger === 1
+      ? 'A primeira noite sem refeição despertou o apetite. Alimentar-se consome 1 mantimento.'
+      : 'Sem fome acumulada. Uma refeição consome 1 mantimento e recupera até 2 energia.';
+  $('meal-btn').disabled = world.player.inventory.alimento < 1;
   $('rest-btn').disabled = energy !== 0 || journey.length >= MAX_JOURNEY;
   $('save-journey').hidden = journey.length === 0;
   for (const key of ['madeira', 'pedra', 'alimento']) $(key).textContent = world.player.inventory[key];
@@ -453,6 +461,26 @@ async function copyText(text) {
       return false;
     }
   }
+}
+
+async function copyMeal() {
+  if (world.player.inventory.alimento < 1) {
+    flash('Sem alimentos na mochila. Reúna mantimentos antes de comer.');
+    return;
+  }
+  const proposal = {
+    schema: 'ermo.action.v2',
+    baseRevision: base.revision,
+    commandId: ensureMessageId(),
+    journey,
+    action: { type: 'comer' },
+    story: 'O Viajante faz uma refeição com 1 alimento da mochila, reduz a fome e recupera até 2 pontos de energia.',
+    commitMessage: 'mundo: fazer refeicao e recuperar forcas'
+  };
+  const copied = await copyText(JSON.stringify(proposal, null, 2));
+  flash(copied
+    ? 'Proposta de refeição copiada. Cole no Chat-Commit e aguarde o commit oficial.'
+    : 'Não foi possível copiar a proposta de refeição.');
 }
 
 async function copyJourney() {
@@ -583,6 +611,7 @@ $('open-chat').addEventListener('click',prepareChatLink);
 $('copy-prompt').addEventListener('click', copyPrompt);
 $('reset-path').addEventListener('click', resetLocal);
 $('rest-btn').addEventListener('click', restDay);
+$('meal-btn').addEventListener('click', copyMeal);
 $('save-journey').addEventListener('click', copyJourney);
 $('refresh-world').addEventListener('click', refreshWorld);
 $('dialogue').addEventListener('keydown', e => {
