@@ -1,0 +1,17 @@
+{
+  "schema": "ermo.action.v1",
+  "baseRevision": 0,
+  "commandId": "acao_mwmaeahq_j7yy44",
+  "movement": [
+    {"q": 1, "r": 0},
+    {"q": 2, "r": 0},
+    {"q": 3, "r": -1},
+    {"q": 4, "r": -1}
+  ],
+  "action": {
+    "type": "construir",
+    "structure": "abrigo"
+  },
+  "story": "O Viajante escolhe a floresta para iniciar sua futura vila. Com 3 madeiras e 1 pedra de seu inventário, ergue o primeiro abrigo. Ainda não há uma vila, mas agora existe um lugar para começar.",
+  "commitMessage": "mundo: construir primeiro abrigo na futura vila"
+}
