@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
-for (const file of ['index.html','styles.css','app.mjs','engine.mjs','persistence.mjs','world.json']) {
+for (const file of ['index.html','styles.css','app.mjs','engine.mjs','persistence.mjs','chat-link.mjs','world.json']) {
   await cp(path.join(root,file), path.join(dist,file));
 }
-console.log('ERMO: site estático preparado em dist/ com 6 arquivos.');
+console.log('ERMO: site estático preparado em dist/ com 7 arquivos.');
