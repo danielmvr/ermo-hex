@@ -1,0 +1,1306 @@
+{
+  "schema": "ermo.world.v1",
+  "revision": 0,
+  "day": 1,
+  "seed": "ermo-001",
+  "radius": 5,
+  "player": {
+    "id": "pioneiro",
+    "name": "Viajante",
+    "position": {
+      "q": 0,
+      "r": 0
+    },
+    "inventory": {
+      "madeira": 3,
+      "pedra": 2,
+      "alimento": 2
+    }
+  },
+  "hexes": [
+    {
+      "q": -5,
+      "r": 0,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": 1,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": 2,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": 4,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": 5,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": -1,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 1,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 2,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 4,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -4,
+      "r": 5,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": -2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": -1,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 0,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 1,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 2,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -3,
+      "r": 5,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": -3,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": -2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": -1,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 1,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 2,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 3,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 4,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -2,
+      "r": 5,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": -4,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": -3,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": -2,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": -1,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 1,
+      "terrain": "colinas",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 2,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 3,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -1,
+      "r": 5,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": -5,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": -4,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": -3,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": -2,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": -1,
+      "terrain": "campina",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 1,
+      "terrain": "campina",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 0,
+      "r": 5,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": -5,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": -4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": -3,
+      "terrain": "ruinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 1,
+        "pedra": 3,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": -2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": -1,
+      "terrain": "campina",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": 0,
+      "terrain": "floresta",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": 1,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": 2,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 1,
+      "r": 4,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": -5,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": -4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": -3,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": -2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": -1,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": 0,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": 1,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": 2,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 2,
+      "r": 3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": -5,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": -4,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": -3,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": -2,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": -1,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": 0,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": 1,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 3,
+      "r": 2,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": -5,
+      "terrain": "lago",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": -4,
+      "terrain": "montanha",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 7,
+        "alimento": 0
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": -3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": -2,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": -1,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 4,
+      "r": 1,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -5,
+      "terrain": "floresta",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -4,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -3,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -2,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -1,
+      "terrain": "colinas",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": 0,
+      "terrain": "campina",
+      "discovered": false,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    }
+  ],
+  "events": [
+    {
+      "id": "origem",
+      "day": 1,
+      "title": "O primeiro despertar",
+      "text": "Um viajante acordou em uma terra sem nome. O resto ainda não aconteceu.",
+      "q": 0,
+      "r": 0
+    }
+  ]
+}

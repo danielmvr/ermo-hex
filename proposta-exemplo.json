@@ -1,0 +1,9 @@
+{
+  "schema": "ermo.action.v1",
+  "baseRevision": 0,
+  "commandId": "acao_exemplo_001",
+  "movement": [],
+  "action": { "type": "coletar", "resource": "madeira", "amount": 2 },
+  "story": "O viajante recolheu dois feixes de madeira em meio à campina.",
+  "commitMessage": "mundo: recolher madeira para a primeira jornada"
+}
