@@ -83,3 +83,23 @@ O executor exige Git limpo, bloqueia revisão obsoleta, teletransporte, descanso
 - `tests/*.test.mjs`: testes de motor, Git e persistência.
 
 Este protótipo tem somente um jogador e nenhum bot. Nenhuma credencial ou API paga é exposta no cliente.
+## Mundo Vivo v0.5: 10.981 hexágonos
+
+O atlas é determinístico por seed, com raio 60: 4.392 células terrestres, 299 de água doce e 6.290 oceânicas.
+Há quatro continentes, seis arquipélagos (18 ilhas separadas), 12 biomas, oito culturas de referência,
+36 espécies de fauna, 60 de flora, 62 sítios singulares e 300 vestígios regionais.
+
+### Preservação e armazenamento
+- Os 91 hexágonos originais de raio 5 são preservados, inclusive os dados de progresso e dias.
+- Não salvamos as 10.981 células no world.json: a geografia é regenerada pelo gerador world-geography.mjs.
+- Apenas células reveladas/alteradas e descobertas comprovadas passam a constar no estado persistente.
+- O mapa-múndi revela somente o que o Viajante descobriu, sem antecipar segredos.
+- A primeira navegação exige jangada de 5 madeiras e 1 pedra, construída junto à água;
+  navegação consome 2 energias por passo, enquanto caminhar custa 1.
+
+### Povos, flora e fauna
+As culturas são referências territoriais e arqueológicas, não NPCs. Espécies são catálogos de
+habitats potenciais, não indivíduos simulados. Ruínas, relíquias e mistérios têm coordenadas estáveis
+e só se tornam descobertas do jogador após visitas reais.
+
+Testes: node --test tests/*.test.mjs. Publicação: node scripts/build-site.mjs.

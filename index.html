@@ -103,6 +103,7 @@
             <strong id="pending-rests">0</strong>
           </div>
           <div class="map-footer-actions">
+            <button id="open-atlas" class="ghost-btn accent-btn" type="button">✧ Abrir mapa-múndi</button>
             <button id="reset-path" class="ghost-btn" type="button">Descartar rascunho local</button>
             <button id="refresh-world" class="ghost-btn accent-btn" type="button" title="Recarregar o estado após o commit">Recarregar mundo</button>
           </div>
@@ -122,6 +123,23 @@
         </div>
       </section>
 
+      <section class="info-panel ecology-panel card">
+        <div class="panel-title"><span>✥ &nbsp; MUNDO VIVO</span><span class="micro">CARTOGRAFIA · BIOMAS · DESCOBERTAS</span></div>
+        <div class="ecology-grid">
+          <div><small>Região conhecida</small><strong id="atlas-region">Carregando...</strong></div>
+          <div><small>Bioma</small><strong id="atlas-biome">Carregando...</strong></div>
+          <div><small>Exploração</small><strong id="atlas-count">0 de 10.981 hexágonos</strong></div>
+          <div><small>Cartografia</small><strong id="atlas-progress">0%</strong></div>
+          <div><small>Vestígios culturais</small><strong id="atlas-culture">Aguardando descoberta</strong></div>
+          <div><small>Descobertas registradas</small><strong id="atlas-sites">0</strong></div>
+        </div>
+        <div class="ecology-sightings">
+          <div><small>Fauna potencial do habitat</small><p id="atlas-fauna">Aguardando exploração</p></div>
+          <div><small>Flora potencial do habitat</small><p id="atlas-flora">Aguardando exploração</p></div>
+          <div><small>Vestígio ou relíquia</small><p id="atlas-find">Nenhuma descoberta registrada</p></div>
+          <div><small>Navegação</small><p id="atlas-vessel">Sem embarcação</p></div>
+        </div>
+      </section>
       <section class="info-panel inventory-panel card">
         <div class="panel-title"><span>▣ &nbsp; MOCHILA</span><span class="micro">ESSENCIAL DO VIAJANTE</span></div>
         <div class="inventory-grid">
@@ -166,6 +184,15 @@
     </aside>
   </div>
 </main>
+<div id="atlas-dialog" class="atlas-overlay" role="dialog" aria-modal="true" aria-label="Mapa-múndi de ERMO" hidden>
+  <section class="atlas-modal card">
+    <div class="panel-title"><span>✧ &nbsp; ATLAS DO ERMO</span>
+      <button id="close-atlas" type="button" class="ghost-btn">Fechar mapa</button></div>
+    <p class="atlas-message">O mundo está definido, mas o conhecimento precisa ser conquistado. Apenas locais revelados aparecem neste mapa.</p>
+    <svg id="world-atlas" role="img" aria-label="Mapa-múndi com a cartografia explorada do Viajante" viewBox="0 0 760 640"></svg>
+    <p class="atlas-help">Os 10.981 hexágonos existem. Continentes, ilhas e relíquias desconhecidos permanecem ocultos até serem explorados.</p>
+  </section>
+</div>
 
 <footer>
   <span>ERMO / UMA CRÔNICA ESCRITA EM COMMITS</span>

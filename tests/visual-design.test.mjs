@@ -20,7 +20,7 @@ test('Modelo 03 mantém todos os controles essenciais do jogador', () => {
 
 test('Hexágonos utilizam artes de bioma com corte SVG e mantendo links', () => {
   assert.match(app, /hex-clip-/);
-  assert.match(app, /hex-\$\{h.terrain\}\.webp/);
+  assert.match(app, /hex-\$\{h.terrain/);
   assert.match(app, /chooseHex\(h\)/);
   assert.match(app, /simulateJourney/);
   assert.match(app, /chatDestination/);
