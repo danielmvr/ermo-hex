@@ -193,13 +193,19 @@ function drawMap() {
       if (h.structures.length) tile.append(dom('circle', { cx: p.x + 17, cy: p.y - 18, r: 5.2, fill: '#f4c56d', stroke: '#2f2815', 'stroke-width': 1.2 }));
       if (h.visited) tile.append(dom('circle', { cx: p.x - 17, cy: p.y + 18, r: 3, fill: '#f5eed2', opacity: .86 }));
       if (h.name) tile.append(dom('circle', { cx: p.x + 16, cy: p.y + 18, r: 3.2, fill: '#8ff5b3', opacity: .8 }));
+      const mark = world.manifestations?.find(s => s.q === h.q && s.r === h.r);
+      if (mark) tile.append(dom('text', {
+        x: p.x, y: p.y - 16, 'text-anchor': 'middle',
+        'font-size': 19, 'font-weight': '900', fill: '#fff0ad',
+        stroke: '#3e2646', 'stroke-width': '.9', 'pointer-events': 'none'
+      }, '✧'));
     } else {
       tile.append(dom('text', { x: p.x, y: p.y + 7, 'text-anchor': 'middle', 'font-size': 20, fill: adjacent ? '#dce3d7' : '#677269', 'font-family': 'Inter, sans-serif', 'font-weight': '800' }, '?'));
       if (adjacent) tile.append(dom('polygon', { points: points(p, SIZE - 4.7), fill: 'rgba(130,172,142,.08)', stroke: 'rgba(157,204,174,.45)', 'stroke-width': '1.1', 'stroke-dasharray': '4 4' }));
     }
 
     const title = dom('title');
-    title.textContent = h.discovered ? `${h.name || TERRAINS[h.terrain].name} (${h.q}, ${h.r})` : `Desconhecido (${h.q}, ${h.r})`;
+    title.textContent = h.discovered ? `${h.name || TERRAINS[h.terrain].name} (${h.q}, ${h.r})${world.manifestations?.some(s => s.q === h.q && s.r === h.r) ? ' · manifestação' : ''}` : `Desconhecido (${h.q}, ${h.r})`;
     tile.append(title);
     tile.addEventListener('click', () => chooseHex(h));
     tile.addEventListener('keydown', e => {
@@ -226,7 +232,9 @@ function describeHex(h) {
   if (!h.discovered) return 'A névoa ainda cobre este hexágono. Caminhe até ele para transformar incerteza em mapa.';
   const baseText = TERRAIN_TEXT[h.terrain];
   const structureText = h.structures.length ? ` Estruturas erguidas aqui: ${h.structures.join(', ')}.` : ' Nenhuma estrutura foi erguida aqui até agora.';
-  return `${baseText}${structureText}`;
+  const mark = world.manifestations?.find(s => s.q === h.q && s.r === h.r);
+  const divineText = mark ? ` Uma manifestação permanece neste lugar: ${mark.name}.` : '';
+  return `${baseText}${structureText}${divineText}`;
 }
 
 function resourceText(h) {
@@ -238,9 +246,11 @@ function resourceText(h) {
 function renderTags(h) {
   const row = $('tile-tags');
   row.replaceChildren();
+  const mark = world.manifestations?.find(s => s.q === h.q && s.r === h.r);
   const tags = !h.discovered
     ? ['névoa de guerra', 'sem reconhecimento', 'aproximação necessária']
-    : [...TERRAIN_STYLE[h.terrain].tags, h.structures.length ? `${h.structures.length} estrutura(s)` : 'sem estruturas'];
+    : [...(mark ? ['✧ manifestação'] : []), ...TERRAIN_STYLE[h.terrain].tags,
+      h.structures.length ? `${h.structures.length} estrutura(s)` : 'sem estruturas'];
   for (const label of tags.slice(0, 4)) {
     const item = document.createElement('span');
     item.className = 'tag';
@@ -265,9 +275,11 @@ function drawHistory() {
   const source = base.events.slice(-5).reverse();
   for (const event of source) {
     const article = document.createElement('article');
-    article.className = 'event';
+    article.className = event.kind === 'divine' ? 'event divine-event' : 'event';
     const day = document.createElement('span');
-    day.textContent = `Dia ${event.day}`;
+    day.textContent = event.kind === 'divine'
+      ? `Dia ${event.day} · reação ${event.intensity} · ${event.verdict}`
+      : `Dia ${event.day}`;
     const title = document.createElement('strong');
     title.textContent = event.title;
     const detail = document.createElement('p');
