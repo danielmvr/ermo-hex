@@ -1,0 +1,26 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 3,
+  "commandId": "acao_mwmh65nw_rydgibfp",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 3,
+      "r": -1
+    }
+  ],
+  "action": {
+    "type": "observar"
+  },
+  "story": "Na floresta, o Viajante encara a própria solidão. A ideia de deixar de existir atravessa seus pensamentos. Nenhuma decisão é tomada. Ele permanece ali, observando um mundo que ainda não lhe deu respostas.",
+  "commitMessage": "mundo: viajante contempla a solidão e sua existência",
+  "reaction": {
+    "intensity": "sutil",
+    "verdict": "surpreender",
+    "title": "Um sinal entre as folhas",
+    "text": "A luz atravessa as copas e ilumina suas pegadas recentes. A floresta não responde à pergunta, mas também não apaga sua passagem.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
