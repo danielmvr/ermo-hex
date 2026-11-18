@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.bootstrap/ermo-v02.tar.xz.b64'
+      - '.github/workflows/bootstrap.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -30,7 +31,7 @@ jobs:
           base64 -d .bootstrap/ermo-v02.tar.xz.b64 > "$RUNNER_TEMP/ermo.tar.xz"
           tar -xJf "$RUNNER_TEMP/ermo.tar.xz" -C .
           rm -rf .bootstrap
-          rm -f .github/workflows/bootstrap.yml
+          rm -f .github/workflows/chat-commit.yml .github/workflows/ci.yml .github/workflows/pages.yml
           node --test tests/*.test.mjs
           node scripts/build-site.mjs
           git config user.name "github-actions[bot]"
