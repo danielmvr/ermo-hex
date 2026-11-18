@@ -10,4 +10,5 @@ await mkdir(dist, { recursive: true });
 for (const file of ['index.html','styles.css','app.mjs','engine.mjs','persistence.mjs','chat-link.mjs','world.json']) {
   await cp(path.join(root,file), path.join(dist,file));
 }
-console.log('ERMO: site estático preparado em dist/ com 7 arquivos.');
+await cp(path.join(root,'assets'), path.join(dist,'assets'), { recursive: true });
+console.log('ERMO: site estático preparado em dist/ com interface, lógica e artes do Modelo 03.');

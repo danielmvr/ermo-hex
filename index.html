@@ -3,72 +3,174 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="theme-color" content="#0f1919"/>
+  <meta name="theme-color" content="#0f120f"/>
   <meta name="description" content="ERMO: experimento de um mundo hexagonal que evolui por commits de IA."/>
-  <title>ERMO | O primeiro despertar</title>
+  <title>ERMO | Sobrevivência imersiva</title>
   <link rel="stylesheet" href="./styles.css"/>
 </head>
-<body>
+<body class="theme-immersive">
 <div class="grain"></div>
+<div class="orb orb-left"></div>
+<div class="orb orb-right"></div>
 <header class="topbar">
-  <div class="brand"><span class="brand-mark">✧</span><div><strong>ERMO<span class="brand-dot">.</span></strong><small>UM MUNDO AINDA SEM HISTÓRIA</small></div></div>
-  <div class="top-right"><span class="status-dot"></span><span id="status">CARREGANDO MUNDO...</span><span class="top-sep">/</span><span id="revision">r0</span></div>
+  <div class="brand-wrap">
+    <div class="brand">
+      <span class="brand-mark">✦</span>
+      <div>
+        <strong>ERMO</strong>
+        <small>EXPLORAÇÃO · SOBREVIVÊNCIA · DESCOBERTA</small>
+      </div>
+    </div>
+    <div class="brand-sub">MUNDO EM HEXÁGONOS, GUIADO POR INTELIGÊNCIA</div>
+  </div>
+  <div class="mode-chip">MODELO 03 · SOBREVIVÊNCIA IMERSIVA</div>
+  <div class="top-stats">
+    <div class="stat-card">
+      <span class="status-dot"></span>
+      <div><small>Status do Mundo</small><strong id="status">CARREGANDO MUNDO...</strong></div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">◈</span>
+      <div><small>Revisão</small><strong id="revision">r0</strong></div>
+    </div>
+    <div class="day-card compact">
+      <span>Crônica Atual</span>
+      <strong id="day">Dia 1</strong>
+      <small id="day-note">Somente o descanso avança o calendário.</small>
+    </div>
+  </div>
 </header>
+
 <main class="app-shell">
-  <section class="world-head">
-    <div><div class="eyebrow">EXPERIMENTO 001 <span class="thin-line"></span> UM ÚNICO VIAJANTE</div><h1>A primeira <em>terra.</em></h1><p>O mundo não responde com uma aventura pronta. Ele espera sua primeira decisão.</p></div>
-    <div class="day-card"><span>CRÔNICA ATUAL</span><strong id="day">Dia 1</strong><small id="day-note">Somente o descanso avança o calendário.</small></div>
-  </section>
   <div class="main-grid">
-    <section class="map-section" aria-label="Mapa hexagonal interativo">
-      <div class="panel-title"><span><i class="tiny-star">✦</i> TERRITÓRIO INEXPLORADO</span><span class="panel-metric"><strong id="discovered">07</strong> / <span id="total">91</span> revelados</span></div>
-      <div class="map-frame">
-        <div class="map-deco map-deco-top">N <span>↑</span></div>
-        <svg id="hexmap" viewBox="0 0 830 625" aria-label="Mapa hexagonal, selecione um hexágono adjacente para caminhar" role="group"></svg>
-        <div class="map-deco map-deco-bottom">CARTOGRAFIA 001 <span>·</span> HEXÁGONOS AXIAIS</div>
-        <div class="map-hint"><span class="hint-player"></span> VOCÊ <span class="hint-available"></span> MOVIMENTO VÁLIDO <span class="hint-unknown"></span> NÃO EXPLORADO</div>
+    <section class="world-column">
+      <div class="player-banner card">
+        <div class="player-portrait" aria-hidden="true"></div>
+        <div class="player-meta">
+          <span class="eyebrow">JOGADOR(A) ÚNICO(A)</span>
+          <h1 id="player-name">Viajante</h1>
+          <p>Um viajante sem facção, cercado por uma terra em formação. O mundo registra seus passos, descansos, descobertas e decisões.</p>
+        </div>
+        <div class="player-side-note">
+          <span>RASCUNHO LOCAL</span>
+          <strong id="discovered">07</strong>
+          <small><span id="total">91</span> hexágonos já revelados neste navegador</small>
+        </div>
       </div>
-      <div class="map-footer">
-        <div><span class="small-label">POSIÇÃO ATUAL</span><strong id="position">0, 0</strong></div>
-        <div><span class="small-label">PASSOS PENDENTES</span><strong id="steps">0</strong></div>
-        <button id="reset-path" class="ghost-btn" type="button">Desfazer exploração</button>
-      </div>
-    </section>
-    <aside class="side-stack">
-      <section class="info-panel tile-panel">
-        <div class="panel-title"><span>✧ &nbsp; PONTO DE OBSERVAÇÃO</span><span id="tile-coords" class="micro">HEX +0 / +0</span></div>
-        <h2 id="tile-title">Campina</h2>
-        <p id="tile-desc">Nenhuma construção registrada.</p>
-        <div class="resource-line" id="tile-resources">Madeira 2 · Pedra 1 · Alimento 5</div>
-        <div class="inventory"><span>MOCHILA</span><div><span><b id="madeira">3</b> Madeira</span><span><b id="pedra">2</b> Pedra</span><span><b id="alimento">2</b> Alimento</span></div></div>
+
+      <section class="map-section card" aria-label="Mapa hexagonal interativo">
+        <div class="panel-title map-title-row">
+          <span><i class="tiny-star">✦</i> HUB DE EXPLORAÇÃO</span>
+          <span class="panel-metric">POSIÇÃO <strong id="position">0, 0</strong> · PASSOS PENDENTES <strong id="steps">0</strong></span>
+        </div>
+
+        <div class="map-shell">
+          <aside class="map-legend">
+            <div class="legend-block">
+              <div class="legend-title">Legenda do Terreno</div>
+              <div class="legend-item"><span class="swatch campina"></span><span>Campina</span></div>
+              <div class="legend-item"><span class="swatch floresta"></span><span>Floresta</span></div>
+              <div class="legend-item"><span class="swatch colinas"></span><span>Colinas</span></div>
+              <div class="legend-item"><span class="swatch montanha"></span><span>Montanha</span></div>
+              <div class="legend-item"><span class="swatch lago"></span><span>Lago</span></div>
+              <div class="legend-item"><span class="swatch ruinas"></span><span>Ruínas</span></div>
+              <div class="legend-item"><span class="swatch unknown"></span><span>Névoa</span></div>
+            </div>
+            <div class="legend-block">
+              <div class="legend-title">Sinais do Mapa</div>
+              <div class="legend-item"><span class="mini-sigil player"></span><span>Sua posição</span></div>
+              <div class="legend-item"><span class="mini-sigil adjacent"></span><span>Movimento válido</span></div>
+              <div class="legend-item"><span class="mini-sigil discovered"></span><span>Visitado</span></div>
+            </div>
+          </aside>
+
+          <div class="map-frame">
+            <div class="map-deco map-deco-top">N <span>↑</span></div>
+            <svg id="hexmap" viewBox="0 0 830 625" aria-label="Mapa hexagonal, selecione um hexágono adjacente para caminhar" role="group"></svg>
+            <div class="map-vignette" aria-hidden="true"></div>
+            <div class="map-deco map-deco-bottom">CARTOGRAFIA VIVA <span>·</span> HEXÁGONOS AXIAIS</div>
+            <div class="map-hint"><span class="hint-player"></span> VOCÊ <span class="hint-available"></span> ALCANCE <span class="hint-unknown"></span> NÉVOA</div>
+          </div>
+        </div>
+
+        <div class="map-footer">
+          <div>
+            <span class="small-label">REVISÃO OFICIAL</span>
+            <strong id="official-revision">Sincronizada com o GitHub</strong>
+          </div>
+          <div>
+            <span class="small-label">DESCANSOS PENDENTES</span>
+            <strong id="pending-rests">0</strong>
+          </div>
+          <div class="map-footer-actions">
+            <button id="reset-path" class="ghost-btn" type="button">Descartar rascunho local</button>
+            <button id="refresh-world" class="ghost-btn accent-btn" type="button" title="Recarregar o estado após o commit">Recarregar mundo</button>
+          </div>
+        </div>
       </section>
-      <section class="info-panel energy-panel" aria-label="Energia e descanso">
+    </section>
+
+    <aside class="side-stack">
+      <section id="tile-card" class="info-panel observation-card card" data-terrain="campina">
+        <div class="panel-title"><span>◉ &nbsp; PONTO DE OBSERVAÇÃO</span><span id="tile-coords" class="micro">HEX +0 / +0</span></div>
+        <div id="tile-scene" class="tile-scene"></div>
+        <div class="observation-copy">
+          <h2 id="tile-title">Campina</h2>
+          <p id="tile-desc">Nenhuma construção registrada.</p>
+          <div id="tile-resources" class="resource-line">Madeira 2 · Pedra 1 · Alimento 5</div>
+          <div id="tile-tags" class="tag-row"></div>
+        </div>
+      </section>
+
+      <section class="info-panel inventory-panel card">
+        <div class="panel-title"><span>▣ &nbsp; MOCHILA</span><span class="micro">ESSENCIAL DO VIAJANTE</span></div>
+        <div class="inventory-grid">
+          <div class="item-card"><small>Madeira</small><strong id="madeira">3</strong><span>galhos e toras</span></div>
+          <div class="item-card"><small>Pedra</small><strong id="pedra">2</strong><span>mineral e entulho</span></div>
+          <div class="item-card"><small>Alimento</small><strong id="alimento">2</strong><span>mantimentos</span></div>
+          <div class="item-card empty"><small>Espaço livre</small><strong>—</strong><span>novo item futuro</span></div>
+          <div class="item-card empty"><small>Espaço livre</small><strong>—</strong><span>novo item futuro</span></div>
+          <div class="item-card empty"><small>Espaço livre</small><strong>—</strong><span>novo item futuro</span></div>
+        </div>
+      </section>
+
+      <section class="info-panel energy-panel card" aria-label="Energia e descanso">
         <div class="panel-title"><span>✦ &nbsp; FÔLEGO DO VIAJANTE</span><span id="energy-value" class="energy-number">12/12</span></div>
         <div class="energy-inner">
           <progress id="energy-meter" max="12" value="12" aria-label="Energia atual"></progress>
-          <p>Andar custa 1 energia por hexágono. Descanse somente quando ela acabar. Cada descanso inicia um novo dia.</p>
+          <p>Andar custa 1 energia por hexágono. Quando sua energia zerar, o descanso fica disponível e um novo dia começa.</p>
           <button id="rest-btn" class="rest-btn" type="button" disabled>DESCANSAR · +1 DIA</button>
         </div>
       </section>
-      <section class="info-panel action-panel">
-        <div class="panel-title"><span>✦ &nbsp; SUA PRÓXIMA DECISÃO</span><span class="micro">ATÉ 100 CARACTERES</span></div>
-        <label for="dialogue">O que você diz ou tenta fazer?</label>
-        <textarea id="dialogue" maxlength="100" rows="3" placeholder="Ex.: Recolho madeira para construir um abrigo."></textarea>
-        <div class="counter"><span>Fale livremente. A IA interpreta a intenção.</span><strong id="counter">0/100</strong></div>
-        <a id="open-chat" class="main-action" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">CONVERSAR COM A INTELIGÊNCIA <span>↗</span></a>
-        <button id="copy-prompt" class="secondary-action" type="button">Copiar contexto completo</button>
-        <button id="save-journey" class="secondary-action" type="button" hidden>Copiar jornada para Chat-Commit</button>
-        <p class="workflow-note">Abre o ChatGPT com mundo + movimento + fala. A resposta é um JSON para a segunda IA validar e transformar em commit.</p>
+
+      <section class="info-panel action-panel card">
+        <div class="panel-title"><span>✧ &nbsp; SUA PRÓXIMA DECISÃO</span><span class="micro">ATÉ 100 CARACTERES</span></div>
+        <div class="decision-art" aria-hidden="true"></div>
+        <label for="dialogue">O que você deseja fazer agora?</label>
+        <p class="action-intro">Explore, investigue, colete, descanse ou peça orientação. O ERMO envia o contexto para a inteligência interpretar sua intenção.</p>
+        <textarea id="dialogue" maxlength="100" rows="3" placeholder="Ex.: Quero investigar as ruínas e procurar pedra útil."></textarea>
+        <div class="counter-line"><span>Fale livremente. A IA interpreta a intenção.</span><strong id="counter">0/100</strong></div>
+        <a id="open-chat" class="main-action" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Conversar com a inteligência <span>↗</span></a>
+        <div class="action-buttons">
+          <button id="copy-prompt" class="secondary-action" type="button">Copiar contexto completo</button>
+          <button id="save-journey" class="secondary-action" type="button" hidden>Copiar jornada para Chat-Commit</button>
+        </div>
+        <p class="workflow-note">O mundo oficial continua em <code>world.json</code>. Sua exploração, energia e descansos ficam salvos neste navegador até virarem commit.</p>
         <div id="local-warning" class="local-warning" hidden></div>
       </section>
-      <section class="info-panel timeline-panel">
-        <div class="panel-title"><span>⌁ &nbsp; ACONTECIMENTOS</span><button id="refresh-world" class="refresh-btn" type="button" title="Recarregar o estado após o commit">↻ Recarregar</button></div>
+
+      <section class="info-panel timeline-panel card">
+        <div class="panel-title"><span>☰ &nbsp; ACONTECIMENTOS</span><span class="micro">LINHA DO TEMPO DA JORNADA</span></div>
         <div id="history"></div>
       </section>
     </aside>
   </div>
 </main>
-<footer><span>ERMO / UMA CRÔNICA ESCRITA EM COMMITS</span><span>RASCUNHO SALVO NO NAVEGADOR · MUNDO OFICIAL NO GITHUB</span></footer>
+
+<footer>
+  <span>ERMO / UMA CRÔNICA ESCRITA EM COMMITS</span>
+  <span>MUNDO OFICIAL NO GITHUB · EXPLORAÇÃO PERSISTIDA NO NAVEGADOR</span>
+</footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script type="module" src="./app.mjs"></script>
 </body>
