@@ -1,6 +1,6 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 3,
+  "revision": 4,
   "day": 5,
   "seed": "ermo-001",
   "radius": 5,
@@ -8,7 +8,7 @@
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 2,
+      "q": 3,
       "r": -1
     },
     "inventory": {
@@ -16,7 +16,7 @@
       "pedra": 1,
       "alimento": 3
     },
-    "energy": 11
+    "energy": 10
   },
   "hexes": [
     {
@@ -1352,6 +1352,26 @@
       "text": "Na campina, o Viajante aproveita a passagem para recolher 1 alimento, gastando 1 energia. A coleta é pontual: recolher recursos automaticamente durante deslocamentos ainda não faz parte das regras.",
       "q": 2,
       "r": -1
+    },
+    {
+      "id": "acao_mwmh65nw_rydgibfp",
+      "day": 5,
+      "title": "mundo: viajante contempla a solidão e sua existência",
+      "text": "Na floresta, o Viajante encara a própria solidão. A ideia de deixar de existir atravessa seus pensamentos. Nenhuma decisão é tomada. Ele permanece ali, observando um mundo que ainda não lhe deu respostas.",
+      "q": 3,
+      "r": -1
+    },
+    {
+      "id": "acao_mwmh65nw_rydgibfp_reacao",
+      "day": 5,
+      "title": "Um sinal entre as folhas",
+      "text": "A luz atravessa as copas e ilumina suas pegadas recentes. A floresta não responde à pergunta, mas também não apaga sua passagem.",
+      "q": 3,
+      "r": -1,
+      "kind": "divine",
+      "intensity": "sutil",
+      "verdict": "surpreender",
+      "effect": "nenhum"
     }
   ]
 }
