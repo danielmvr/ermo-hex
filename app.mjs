@@ -52,6 +52,8 @@ let journey = [];
 let storage;
 let messageId = '';
 let toastTimer = 0;
+let preparedPrompt = '';
+let chatIsDirect = false;
 try { storage = window.localStorage; } catch { storage = null; }
 
 const stepsCount = () => journey.filter(e => e.type === 'mover' || e.type === 'navegar').length;
@@ -337,6 +339,7 @@ function drawAll() {
     ? `${restCount()} descanso(s) ainda sem commit no GitHub.`
     : 'Somente o descanso avança o calendário.';
   drawHistory();
+  refreshChatHref();
 }
 
 function recordJourney(nextEvent, message) {
@@ -472,35 +475,56 @@ async function copyPrompt() {
     : 'Não foi possível copiar o contexto.');
 }
 
-function prepareChatLink(event) {
-  const prompt = buildPrompt();
-  if (!prompt) {
-    event.preventDefault();
+/** A URL é definida antes do clique, sempre como link nativo, evitando pop-ups e race conditions. */
+function refreshChatHref() {
+  const anchor=$('open-chat');
+  preparedPrompt='';
+  chatIsDirect=false;
+  anchor.href='https://chatgpt.com/';
+  if(!dialogValue()) {
+    anchor.setAttribute('aria-disabled','true');
     return;
   }
-  const destination = chatDestination(prompt);
-  event.currentTarget.href = destination.url;
-  if (destination.direct) {
-    flash('ChatGPT aberto com o contexto. Confira e envie a mensagem se necessário.');
+  try {
+    const prompt=buildPrompt();
+    if(!prompt) return;
+    const destination=chatDestination(prompt);
+    preparedPrompt=prompt;
+    chatIsDirect=destination.direct;
+    anchor.href=destination.url;
+    anchor.removeAttribute('aria-disabled');
+  } catch(error) {
+    anchor.setAttribute('aria-disabled','true');
+    flash('Não foi possível preparar a conversa: '+error.message);
+  }
+}
+
+/** O navegador segue o href já preparado, sem esperar Promise ou executar montagem no clique. */
+function prepareChatLink(event) {
+  if(!preparedPrompt || !dialogValue()) {
+    event.preventDefault();
+    flash('Digite sua mensagem de até 100 caracteres para abrir o ChatGPT.');
+    return;
+  }
+  if(chatIsDirect) {
+    flash('ChatGPT aberto com fala, jornada e link para WORLD_CONTEXT.md. Envie a mensagem quando carregar.');
   } else {
-    copyText(prompt).then(ok => flash(ok
-      ? 'ChatGPT aberto. Contexto extenso copiado: cole com Ctrl+V e envie.'
-      : 'ChatGPT aberto, mas a cópia foi bloqueada. Use “Copiar contexto completo” e cole.'));
+    copyText(preparedPrompt).then(ok => flash(ok
+      ? 'ChatGPT aberto. Link compacto copiado: cole usando Ctrl+V.'
+      : 'ChatGPT aberto. Use “Copiar contexto completo” caso a URL não seja preenchida.'));
   }
 }
 
 function openChatFromKeyboard() {
-  const prompt = buildPrompt();
-  if (!prompt) return;
-  const destination = chatDestination(prompt);
-  window.open(destination.url, '_blank', 'noopener,noreferrer');
-  if (destination.direct) {
-    flash('ChatGPT aberto com o contexto. Confira e envie a mensagem se necessário.');
-  } else {
-    copyText(prompt).then(ok => flash(ok
-      ? 'ChatGPT aberto. Contexto extenso copiado: cole com Ctrl+V e envie.'
-      : 'ChatGPT aberto. Use “Copiar contexto completo” e cole.'));
+  if(!preparedPrompt) {
+    flash('Digite sua mensagem de até 100 caracteres.');
+    return;
   }
+  const anchor=$('open-chat');
+  window.open(anchor.href,'_blank','noopener,noreferrer');
+  if(!chatIsDirect) copyText(preparedPrompt).then(ok=>flash(ok
+    ? 'Mensagem copiada: cole usando Ctrl+V na aba do ChatGPT.'
+    : 'Abra o ChatGPT pelo botão e use “Copiar contexto completo”.'));
 }
 
 function resetLocal() {
@@ -553,6 +577,7 @@ $('dialogue').addEventListener('input', () => {
   $('counter').classList.toggle('over', len > 100);
   messageId = '';
   persistDraft();
+  refreshChatHref();
 });
 $('open-chat').addEventListener('click',prepareChatLink);
 $('copy-prompt').addEventListener('click', copyPrompt);
