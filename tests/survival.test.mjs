@@ -46,10 +46,33 @@ test('comer consome exatamente 1 alimento e recupera dois pontos de energia',()=
   w.player.hunger=2;w.player.energy=0;
   const after=applyProposal(w,proposal(w,{type:'comer'}));
   assert.equal(after.player.hunger,0);
+  assert.equal(after.player.lastMealDay,1);
   assert.equal(after.player.energy,2);
   assert.equal(after.player.inventory.alimento,w.player.inventory.alimento-1);
   assert.equal(after.day,1);
   assert.equal(after.revision,1);
+});
+test('comer antes de descansar evita fome na virada do dia',()=>{
+  const w=structuredClone(defaultWorld);
+  w.player.energy=0;
+  w.player.hunger=2;
+  const fed=applyProposal(w,proposal(w,{type:'comer'},[],'comer1'));
+  const tired=structuredClone(fed);
+  tired.player.energy=0;
+  const rested=simulateJourney(tired,[{type:'descansar'}]).world;
+  assert.equal(rested.day,2);
+  assert.equal(rested.player.hunger,0);
+  assert.equal(rested.player.energy,12);
+});
+test('refeição anterior não imuniza a fome para sempre',()=>{
+  const w=structuredClone(defaultWorld);
+  w.player.lastMealDay=1;
+  w.day=2;
+  w.player.hunger=0;
+  w.player.energy=0;
+  const rested=simulateJourney(w,[{type:'descansar'}]).world;
+  assert.equal(rested.day,3);
+  assert.equal(rested.player.hunger,1);
 });
 test('comer não excede energia máxima e não autoriza alimentos inexistentes',()=>{
   const w=structuredClone(defaultWorld);w.player.energy=11;
@@ -71,6 +94,7 @@ test('veto divino de refeição preserva alimento, energia e fome',()=>{
   assert.deepEqual(after.player.inventory,w.player.inventory);
   assert.equal(after.player.energy,0);
   assert.equal(after.player.hunger,3);
+  assert.equal(after.player.lastMealDay,undefined);
 });
 test('a regra não muda o consumo de energia ao caminhar',()=>{
   const w=structuredClone(defaultWorld);
@@ -94,13 +118,15 @@ test('diagnóstico: avaliar a rota da revisão canônica 5 sem modificar o mundo
     [11,-4],[12,-5],[12,-6],[11,-6],[10,-6],[10,-7],[10,-8],
     [10,-9],[10,-10],[10,-11],[10,-12],[11,-13]
   ].map(p=>p?{type:'mover',q:p[0],r:p[1]}:{type:'descansar'});
-  if(w.revision!==5) return;
-  try {
-    const result=simulateJourney(w,journey);
-    console.log('ERMO_ROUTE_DIAGNOSTIC PASS destination='+JSON.stringify(result.world.player.position)+
-      ' day='+result.world.day+' energy='+result.world.player.energy+
-      ' hunger='+result.world.player.hunger+' visited='+result.moves);
-  } catch (e) {
-    console.log('ERMO_ROUTE_DIAGNOSTIC REJECT reason='+e.message);
-  }
+  // Reproduz o ponto de partida conhecido, independentemente de revisões futuras.
+  w.player.position={q:4,r:-2};
+  w.player.energy=7;
+  w.player.hunger=0;
+  w.day=5;
+  const result=simulateJourney(w,journey);
+  assert.deepEqual(result.world.player.position,{q:11,r:-13});
+  assert.equal(result.world.day,6);
+  assert.equal(result.world.player.energy,0);
+  assert.equal(result.world.player.hunger,1);
+  assert.equal(result.moves,19);
 });
