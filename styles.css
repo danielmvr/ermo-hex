@@ -18,3 +18,6 @@
 .rest-btn:hover:not(:disabled) {background:#ead39a}
 .rest-btn:disabled {opacity:.43;cursor:not-allowed;background:#586a59;color:#e3dfc7}
 .secondary-action[hidden],.local-warning[hidden] {display:none!important}
+
+/* O acesso ao chatbot é um link navegável com estilo de botão. */
+.main-action{text-decoration:none}
