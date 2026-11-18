@@ -18,7 +18,7 @@ Experimento para navegador, sem API paga: um jogador explora 91 hexágonos e env
 2. Escreva a intenção do jogador em até 100 caracteres.
 3. Clique em **Conversar com a inteligência**. O navegador abre `https://chatgpt.com/?q=...` com o contexto embutido. Dependendo da interface, confira o texto e pressione Enter. Há também **Copiar contexto completo**.
 4. O primeiro ChatGPT deve responder com **JSON puro**. Copie a resposta inteira.
-5. Cole no **Chat-Commit** com acesso de desenvolvimento ao repositório. Alternativa sem agente externo: no GitHub, `Actions → ERMO | Chat-Commit manual → Run workflow`; cole JSON em `proposal_json` e execute.
+5. Cole no **Chat-Commit** conectado ao GitHub. Depois de ativada a automação, o agente cria `proposals/inbox/<commandId>.json` na `main` e o workflow inicia automaticamente. Alternativa manual: no GitHub, `Actions → ERMO | Chat-Commit manual → Run workflow`; cole JSON em `proposal_json` e execute.
 6. Aguarde o sucesso do workflow de commit e publicação. Clique em **↻ Recarregar** no jogo. O novo estado vem do `world.json` versionado.
 
 > O código de atualização do mundo já está pronto. A sincronização via GitHub e a URL pública dependem da criação do repositório e da configuração de Pages. Não foi instalada nenhuma API paga.
@@ -68,8 +68,8 @@ Ele rejeita JSON malformado, schema diferente, revisões obsoletas, IDs duplicad
 ## Automação GitHub Actions
 
 - `ci.yml`: roda testes na subida normal de arquivos e em Pull Requests.
-- `chat-commit.yml`: entrada manual de `proposal_json`, validação, commit automático e chamada explícita do deploy.
-- `pages.yml`: publica **somente** os cinco arquivos públicos construídos em `dist/`.
+- `chat-commit.yml`: entrada manual por `proposal_json` **ou** gatilho de novo arquivo `proposals/inbox/*.json`; validação, commit automático e chamada explícita do deploy.
+- `pages.yml`: publica **somente** os cinco arquivos públicos construídos em `dist/`, ignorando pushes que apenas enviam JSON ao inbox (antes de o mundo ser validado).
 
 O uso de Pages por `GitHub Actions` é importante: commits criados pelo `GITHUB_TOKEN` dentro do workflow não provocam automaticamente um deploy por gatilho `push`. Por isso o Chat-Commit chama o publicador diretamente.
 
@@ -82,11 +82,20 @@ O uso de Pages por `GitHub Actions` é importante: commits criados pelo `GITHUB_
 | `world.json` | Mundo canônico persistente |
 | `scripts/chat-commit.mjs` | Validação, testes, commit e push |
 | `scripts/apply-commit.mjs` | Validação e aplicação sem Git (ferramenta auxiliar) |
+| `scripts/select-inbox.mjs` | Verifica um único JSON novo recebido via GitHub e prepara `proposta.json` sem executar texto |
 | `scripts/build-site.mjs` | Prepara conteúdo seguro para Pages |
 | `tests/*.test.mjs` | Testes do motor e do Chat-Commit |
 | `CHAT_COMMIT_START.md` | Prompt pronto para o agente executor |
 | `GUIA_GITHUB.md` | Passo a passo de publicação |
 | `.github/workflows/*.yml` | CI, commit manual e Pages |
+
+## Entrada automática pelo GitHub (após mesclar o PR de automação)
+
+O Chat-Commit com conexão GitHub pode receber um JSON válido e criar **somente** um arquivo novo em `proposals/inbox/<commandId>.json`, diretamente na branch `main`, usando a API de arquivos do GitHub. Essa é uma entrada pública e auditável, **não é um commit de mundo**: a revisão só muda após o motor oficial validar a proposta no workflow.
+
+O push desse arquivo dispara `ERMO | Chat-Commit manual` automaticamente; o workflow confere que **exatamente um JSON foi adicionado**, que o nome coincide com `commandId`, executa todos os testes, faz `--dry-run`, usa `scripts/chat-commit.mjs --push` para alterar **somente** `world.json` e, após sucesso, chama Pages. Se o JSON for rejeitado ou o push falhar, o workflow falha e não publica uma consequência nova. O JSON enviado permanece no histórico do repositório, inclusive se for rejeitado.
+
+Use uma interação por vez: **confirme o commit e o deploy antes de enviar outra proposta**; não tente reutilizar `commandId`. O GitHub pode enfileirar execuções, mas a validação de `baseRevision` sempre protege a versão canônica. Não inclua dados pessoais, tokens ou segredos, já que o repositório é público. A automação exige que a conexão GitHub disponha de escrita em arquivos, que o push dessa conexão dispare Actions e que o `GITHUB_TOKEN` tenha `contents: write`. Caso não esteja ativo, use o `workflow_dispatch` manual.
 
 ## Limites da prova de conceito
 

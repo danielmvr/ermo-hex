@@ -2,6 +2,8 @@ name: ERMO | Publicar mundo
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'proposals/inbox/**'
   workflow_dispatch:
   workflow_call:
 permissions:

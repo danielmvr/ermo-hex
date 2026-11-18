@@ -30,8 +30,16 @@ Não crie Personal Access Token nem o coloque no jogo. A ação usa o `GITHUB_TO
 1. Abra o mapa hospedado; caminhe e digite até 100 caracteres.
 2. Clique para abrir o ChatGPT com o prompt contextual; confira e envie caso necessário.
 3. Copie o JSON devolvido.
-4. Cole-o no chat com o prompt `CHAT_COMMIT_START.md`, se tiver ferramenta de desenvolvimento conectada ao repositório. Ou abra `Actions → ERMO | Chat-Commit manual → Run workflow` e cole o JSON no campo `proposal_json`.
-5. Após commit e deploy concluídos, recarregue o mapa.
+4. Cole-o no chat com o prompt `CHAT_COMMIT_START.md`. **Com a automação integrada na `main`**, o agente cria `proposals/inbox/<commandId>.json` pela conexão GitHub; isso dispara o workflow automaticamente, sem abrir a aba Actions. Alternativa manual: `Actions → ERMO | Chat-Commit manual → Run workflow` e cole o JSON em `proposal_json`.
+5. Aguarde o workflow validar a proposta, fazer commit em `world.json` e publicar Pages. Confirme o commit/revisão e o deploy antes da próxima ação; depois recarregue o mapa.
+
+### Ativação e verificação do inbox automático
+
+- Faça merge do PR de automação em `main`; a mera existência do código numa branch não habilita o gatilho.
+- O Chat-Commit precisa poder criar **um novo arquivo** `proposals/inbox/<commandId>.json` diretamente na branch `main` usando a conexão GitHub autorizada. Não envie JSON se já houver outra ação em processamento.
+- O workflow `ERMO | Chat-Commit manual` detecta o push pelo caminho, valida o único arquivo adicionado, faz testes e `--dry-run`, executa o motor oficial, cria o commit exclusivo de `world.json` e chama Pages. `ERMO | Publicar mundo` não publica diretamente o push de entrada.
+- Verifique **Actions → ERMO | Chat-Commit manual**: conclusão de `commit-world` e `deploy`; confirme a nova revisão em `world.json` e no jogo. Rejeições deixam o arquivo de entrada no histórico, mas não aplicam uma ação no mundo.
+- O repositório é público: não envie senhas, e-mails, tokens ou informações pessoais no JSON. Se um push pela conexão GitHub não acionar Actions, use o modo manual e confira permissões do aplicativo/instalação.
 
 Para validar localmente, sem publicação:
 

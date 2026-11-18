@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
+const persistedRevision = JSON.parse(readFileSync(join(root, 'world.json'), 'utf8')).revision;
 function invoke(dir, cmd, args, expected = 0) {
   const r = spawnSync(cmd, args, { cwd:dir, encoding:'utf8', shell:false });
   assert.equal(r.status,expected,`${cmd} ${args.join(' ')}: ${r.stdout} ${r.stderr}`);
@@ -27,7 +28,7 @@ function sandbox() {
   invoke(dir,'git',['commit','-qm','inicio']);
   return dir;
 }
-function proposal(revision=0) {
+function proposal(revision=persistedRevision) {
   return {schema:'ermo.action.v1',baseRevision:revision,commandId:'acao_integracao',movement:[],action:{type:'observar'},story:'O viajante contemplou o horizonte.',commitMessage:'mundo: observar horizonte'};
 }
 test('chat-commit: valida e grava um commit real só em world.json',()=>{
@@ -39,7 +40,7 @@ test('chat-commit: valida e grava um commit real só em world.json',()=>{
     assert.equal(invoke(dir,'git',['rev-parse','HEAD']).trim(),before);
     invoke(dir,'node',['scripts/chat-commit.mjs','proposta.json']);
     const world=JSON.parse(readFileSync(join(dir,'world.json'),'utf8'));
-    assert.equal(world.revision,1);
+    assert.equal(world.revision,persistedRevision + 1);
     assert.equal(world.events.at(-1).id,'acao_integracao');
     assert.equal(invoke(dir,'git',['show','--format=','--name-only','HEAD']).trim(),'world.json');
     assert.notEqual(invoke(dir,'git',['rev-parse','HEAD']).trim(),before);
@@ -48,7 +49,7 @@ test('chat-commit: valida e grava um commit real só em world.json',()=>{
 test('chat-commit: bloqueia proposta obsoleta sem modificar o estado',()=>{
   const dir=sandbox();
   try {
-    writeFileSync(join(dir,'proposta.json'),JSON.stringify(proposal(99)));
+    writeFileSync(join(dir,'proposta.json'),JSON.stringify(proposal(persistedRevision + 99)));
     const before=readFileSync(join(dir,'world.json'),'utf8');
     const r=invoke(dir,'node',['scripts/chat-commit.mjs','proposta.json'],1);
     assert.match(r,/Revisão desatualizada/);
