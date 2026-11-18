@@ -1,4 +1,4 @@
-# ERMO | Mundo persistente + Chat-Commit v0.3
+# ERMO | Mundo persistente + Chat-Commit v0.4
 
 **Um personagem, mapa hexagonal, energia e dias acionados pelo descanso.**
 
@@ -31,6 +31,18 @@ Repositório: https://github.com/danielmvr/ermo-hex
 5. Entregue o JSON ao agente preparado com [CHAT_COMMIT_START.md](CHAT_COMMIT_START.md), ou abra [ERMO | Chat-Commit manual](https://github.com/danielmvr/ermo-hex/actions/workflows/chat-commit.yml) → **Run workflow** → `proposal_json`.
 6. Após os workflows de commit e publicação concluírem, clique **↻ Recarregar** no jogo. O navegador reconcilia o rascunho com o mundo remoto.
 
+## Camada reativa do mundo (v0.4)
+
+A IA que interpreta a fala continua produzindo o JSON de ação `ermo.action.v2`. **O agente Chat-Commit, como Júri, Juiz e Executor, pode decidir autonomamente se o mundo reage** antes de gravar o commit. Se decidir reagir, ele converte a proposta validada para `ermo.action.v3`, acrescentando uma reação em intensidade `sutil`, `media` ou `alta`.
+
+- **Sutil:** resposta narrativa, silêncio ou presságio.
+- **Média:** bênção, revés, revelação limitada ou veto de uma ação, sem afetar a rota.
+- **Alta:** efeitos mais intensos e possibilidade de criar uma **manifestação persistente** no hexágono atual, marcada com ✧ no mapa.
+
+A escolha e o veredito (`conceder`, `negar`, `surpreender`) pertencem ao agente, **não ao jogador**. O motor determina os efeitos permitidos, limita recursos e energia, preserva os passos e registra a reação em `world.json`. Propostas antigas `v1/v2` continuam válidas sem reação. Mudanças de regras maiores podem ser desenvolvidas em branch separada com testes e PR, nunca por código escondido em texto de jogador.
+
+Leia o contrato, os efeitos e os limites em [REACOES_DIVINAS.md](REACOES_DIVINAS.md).
+
 ## Contrato do ChatGPT v0.3
 
 ```json
@@ -62,7 +74,7 @@ node scripts/chat-commit.mjs proposta.json --push
 
 O executor exige Git limpo, bloqueia revisão obsoleta, teletransporte, descanso com energia positiva, gastos indevidos e recursos inexistentes. Apenas `world.json` pode ser alterado por uma ação do jogador.
 
-- `engine.mjs`: regras e validação de propostas `v1/v2`.
+- `engine.mjs`: regras, validação de propostas `v1/v2/v3` e consequências divinas.
 - `persistence.mjs`: cache remoto, autosave, restauro e reconciliação.
 - `app.mjs`, `index.html`, `styles.css`: mapa, UI de energia/descanso e ChatGPT.
 - `world.json`: estado canônico versionado; **não reinicializar em deploys**.
