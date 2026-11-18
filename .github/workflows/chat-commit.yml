@@ -6,9 +6,14 @@ on:
         description: 'Cole o objeto JSON completo devolvido pelo chatbot (ermo.action.v1)'
         required: true
         type: string
+  push:
+    branches: [main]
+    paths:
+      - 'proposals/inbox/*.json'
 concurrency:
   group: ermo-world-main
   cancel-in-progress: false
+  queue: max
 jobs:
   commit-world:
     if: github.ref == 'refs/heads/main'
@@ -25,10 +30,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Preparar JSON sem executar texto recebido
+      - name: Preparar JSON enviado manualmente
+        if: github.event_name == 'workflow_dispatch'
         env:
           ERMO_PROPOSAL_JSON: ${{ inputs.proposal_json }}
         run: node -e "require('node:fs').writeFileSync('proposta.json', process.env.ERMO_PROPOSAL_JSON, 'utf8')"
+      - name: Preparar proposta recebida pelo GitHub
+        if: github.event_name == 'push'
+        run: node scripts/select-inbox.mjs
+      - name: Executar todos os testes
+        run: node --test tests/*.test.mjs
+      - name: Validar proposta sem alterações
+        run: node scripts/chat-commit.mjs proposta.json --dry-run
       - name: Criar commit após validações e testes
         run: |
           git config user.name 'github-actions[bot]'
