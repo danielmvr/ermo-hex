@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { applyProposal } from '../engine.mjs';
+import { renderWorldContext } from './world-context.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -44,37 +45,43 @@ async function main() {
   const status = git('status', '--porcelain', '--untracked-files=normal');
   if (status) throw new Error(`Há alterações pendentes que não pertencem ao Chat-Commit. Repositório precisa estar limpo:\n${status.slice(0, 1200)}`);
 
-  const [rawWorld, rawProposal] = await Promise.all([
+  const [rawWorld, rawContext, rawProposal] = await Promise.all([
     readFile(path.join(root, 'world.json'), 'utf8'),
+    readFile(path.join(root, 'WORLD_CONTEXT.md'), 'utf8'),
     readFile(path.resolve(paths[0]), 'utf8')
   ]);
   const before = JSON.parse(rawWorld);
+  if (rawContext !== renderWorldContext(before)) throw new Error('WORLD_CONTEXT.md divergente do estado atual. Regenere o contexto antes de commitar.');
   const proposal = decodeProposal(rawProposal);
   const next = applyProposal(before, proposal);
   const newContent = JSON.stringify(next, null, 2) + '\n';
+  const newContext = renderWorldContext(next);
   console.log(`✅ VALIDADO: ${before.revision} → ${next.revision}; ação ${proposal.action.type}; branch ${branch}`);
   if (flags.includes('--dry-run')) {
     console.log('Prévia apenas: nenhum arquivo foi alterado.');
     return;
   }
   const stateFile = path.join(root, 'world.json');
+  const contextFile = path.join(root, 'WORLD_CONTEXT.md');
   let committed = false;
   try {
     await writeFile(stateFile, newContent, 'utf8');
-    run(process.execPath, ['--test', 'tests/engine.test.mjs']);
+    await writeFile(contextFile, newContext, 'utf8');
+    run(process.execPath, ['--test', 'tests/engine.test.mjs', 'tests/world-context.test.mjs']);
     git('diff', '--check');
     const modified = git('diff', '--name-only').split('\n').filter(Boolean);
-    if (modified.length !== 1 || modified[0] !== 'world.json') throw new Error('Somente world.json pode ser alterado por uma interação.');
-    git('add', '--', 'world.json');
+    if (modified.join(',') !== 'WORLD_CONTEXT.md,world.json') throw new Error('Somente world.json e WORLD_CONTEXT.md podem mudar por interação.');
+    git('add', '--', 'world.json', 'WORLD_CONTEXT.md');
     const staged = git('diff', '--cached', '--name-only').split('\n').filter(Boolean);
-    if (staged.length !== 1 || staged[0] !== 'world.json') throw new Error('Índice Git contém arquivos não autorizados.');
-    git('commit', '-m', proposal.commitMessage.trim(), '--', 'world.json');
+    if (staged.join(',') !== 'WORLD_CONTEXT.md,world.json') throw new Error('Índice Git contém arquivos não autorizados.');
+    git('commit', '-m', proposal.commitMessage.trim(), '--', 'world.json', 'WORLD_CONTEXT.md');
     committed = true;
   } catch (error) {
     if (!committed) {
       await writeFile(stateFile, rawWorld, 'utf8');
-      // Limpa apenas o arquivo que o agente colocou no índice.
-      run('git', ['reset', '--quiet', 'HEAD', '--', 'world.json'], { allowFailure: true });
+      await writeFile(contextFile, rawContext, 'utf8');
+      // Limpa apenas os dois arquivos controlados pelo agente.
+      run('git', ['reset', '--quiet', 'HEAD', '--', 'world.json', 'WORLD_CONTEXT.md'], { allowFailure: true });
     }
     throw error;
   }

@@ -15,8 +15,8 @@ function invoke(dir, cmd, args, expected = 0) {
 }
 function sandbox() {
   const dir = mkdtempSync(join(tmpdir(), 'ermo-test-'));
-  for (const f of ['engine.mjs','world-geography.mjs','world.json','.gitignore']) cpSync(join(root,f),join(dir,f));
-  for (const f of ['scripts/chat-commit.mjs','tests/engine.test.mjs','tests/chat-commit.test.mjs']) {
+  for (const f of ['engine.mjs','world-geography.mjs','world.json','WORLD_CONTEXT.md','.gitignore']) cpSync(join(root,f),join(dir,f));
+  for (const f of ['scripts/chat-commit.mjs','scripts/world-context.mjs','tests/engine.test.mjs','tests/chat-commit.test.mjs','tests/world-context.test.mjs']) {
     const dest=join(dir,f);
     mkdirSync(dirname(dest),{recursive:true});
     cpSync(join(root,f),dest,{recursive:false});
@@ -31,7 +31,7 @@ function sandbox() {
 function proposal(revision=persistedRevision) {
   return {schema:'ermo.action.v1',baseRevision:revision,commandId:'acao_integracao',movement:[],action:{type:'observar'},story:'O viajante contemplou o horizonte.',commitMessage:'mundo: observar horizonte'};
 }
-test('chat-commit: valida e grava um commit real só em world.json',()=>{
+test('chat-commit: valida e grava world.json e WORLD_CONTEXT.md no mesmo commit',()=>{
   const dir=sandbox();
   try {
     writeFileSync(join(dir,'proposta.json'),JSON.stringify(proposal()));
@@ -41,8 +41,9 @@ test('chat-commit: valida e grava um commit real só em world.json',()=>{
     invoke(dir,'node',['scripts/chat-commit.mjs','proposta.json']);
     const world=JSON.parse(readFileSync(join(dir,'world.json'),'utf8'));
     assert.equal(world.revision,persistedRevision + 1);
+    assert.match(readFileSync(join(dir,'WORLD_CONTEXT.md'),'utf8'),new RegExp('"revision": '+world.revision));
     assert.equal(world.events.at(-1).id,'acao_integracao');
-    assert.equal(invoke(dir,'git',['show','--format=','--name-only','HEAD']).trim(),'world.json');
+    assert.equal(invoke(dir,'git',['show','--format=','--name-only','HEAD']).trim(),'WORLD_CONTEXT.md\nworld.json');
     assert.notEqual(invoke(dir,'git',['rev-parse','HEAD']).trim(),before);
   } finally {rmSync(dir,{recursive:true,force:true});}
 });
