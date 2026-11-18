@@ -1,0 +1,72 @@
+{
+  "schema": "ermo.action.v2",
+  "baseRevision": 2,
+  "commandId": "acao_mwmguoo4_efzqe6u8",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 0,
+      "r": -3
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": -2,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 1,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -3
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -1
+    },
+    {
+      "type": "descansar"
+    }
+  ],
+  "action": {
+    "type": "coletar",
+    "resource": "alimento",
+    "amount": 1
+  },
+  "story": "Na campina, o Viajante aproveita a passagem para recolher 1 alimento, gastando 1 energia. A coleta é pontual: recolher recursos automaticamente durante deslocamentos ainda não faz parte das regras.",
+  "commitMessage": "mundo: coletar 1 alimento na campina após jornada"
+}
