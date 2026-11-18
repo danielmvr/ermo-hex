@@ -1,29 +1,30 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 1,
-  "day": 2,
+  "revision": 2,
+  "day": 4,
   "seed": "ermo-001",
   "radius": 5,
   "player": {
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 4,
-      "r": -1
+      "q": 1,
+      "r": -3
     },
     "inventory": {
       "madeira": 0,
       "pedra": 1,
       "alimento": 2
-    }
+    },
+    "energy": 11
   },
   "hexes": [
     {
       "q": -5,
       "r": 0,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -36,8 +37,8 @@
       "q": -5,
       "r": 1,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -50,8 +51,8 @@
       "q": -5,
       "r": 2,
       "terrain": "montanha",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 0,
@@ -64,7 +65,7 @@
       "q": -5,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -106,8 +107,8 @@
       "q": -4,
       "r": -1,
       "terrain": "colinas",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -120,7 +121,7 @@
       "q": -4,
       "r": 0,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -134,7 +135,7 @@
       "q": -4,
       "r": 1,
       "terrain": "lago",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -148,8 +149,8 @@
       "q": -4,
       "r": 2,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -162,7 +163,7 @@
       "q": -4,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -176,7 +177,7 @@
       "q": -4,
       "r": 4,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -190,7 +191,7 @@
       "q": -4,
       "r": 5,
       "terrain": "lago",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -204,7 +205,7 @@
       "q": -3,
       "r": -2,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -218,8 +219,8 @@
       "q": -3,
       "r": -1,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -232,7 +233,7 @@
       "q": -3,
       "r": 0,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -246,7 +247,7 @@
       "q": -3,
       "r": 1,
       "terrain": "lago",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -260,8 +261,8 @@
       "q": -3,
       "r": 2,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -274,8 +275,8 @@
       "q": -3,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -288,8 +289,8 @@
       "q": -3,
       "r": 4,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -302,7 +303,7 @@
       "q": -3,
       "r": 5,
       "terrain": "montanha",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -330,7 +331,7 @@
       "q": -2,
       "r": -2,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -344,8 +345,8 @@
       "q": -2,
       "r": -1,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -358,7 +359,7 @@
       "q": -2,
       "r": 0,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -372,7 +373,7 @@
       "q": -2,
       "r": 1,
       "terrain": "montanha",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -386,7 +387,7 @@
       "q": -2,
       "r": 2,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -400,7 +401,7 @@
       "q": -2,
       "r": 3,
       "terrain": "lago",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -414,8 +415,8 @@
       "q": -2,
       "r": 4,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -428,7 +429,7 @@
       "q": -2,
       "r": 5,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -456,7 +457,7 @@
       "q": -1,
       "r": -3,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -470,8 +471,8 @@
       "q": -1,
       "r": -2,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -484,7 +485,7 @@
       "q": -1,
       "r": -1,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -526,7 +527,7 @@
       "q": -1,
       "r": 2,
       "terrain": "montanha",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -540,7 +541,7 @@
       "q": -1,
       "r": 3,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -554,8 +555,8 @@
       "q": -1,
       "r": 4,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -568,7 +569,7 @@
       "q": -1,
       "r": 5,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -596,7 +597,7 @@
       "q": 0,
       "r": -4,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -610,8 +611,8 @@
       "q": 0,
       "r": -3,
       "terrain": "montanha",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 0,
@@ -624,7 +625,7 @@
       "q": 0,
       "r": -2,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -667,7 +668,7 @@
       "r": 1,
       "terrain": "campina",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -680,8 +681,8 @@
       "q": 0,
       "r": 2,
       "terrain": "colinas",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -694,8 +695,8 @@
       "q": 0,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -708,8 +709,8 @@
       "q": 0,
       "r": 4,
       "terrain": "campina",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -722,8 +723,8 @@
       "q": 0,
       "r": 5,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -750,7 +751,7 @@
       "q": 1,
       "r": -4,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -764,8 +765,8 @@
       "q": 1,
       "r": -3,
       "terrain": "ruinas",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 1,
@@ -778,7 +779,7 @@
       "q": 1,
       "r": -2,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -834,7 +835,7 @@
       "q": 1,
       "r": 2,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -848,7 +849,7 @@
       "q": 1,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -862,8 +863,8 @@
       "q": 1,
       "r": 4,
       "terrain": "colinas",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -890,7 +891,7 @@
       "q": 2,
       "r": -4,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -904,7 +905,7 @@
       "q": 2,
       "r": -3,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -918,7 +919,7 @@
       "q": 2,
       "r": -2,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -933,7 +934,7 @@
       "r": -1,
       "terrain": "campina",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -988,7 +989,7 @@
       "q": 2,
       "r": 3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1311,6 +1312,30 @@
       "text": "O Viajante escolhe a floresta para iniciar sua futura vila. Com 3 madeiras e 1 pedra de seu inventário, ergue o primeiro abrigo. Ainda não há uma vila, mas agora existe um lugar para começar.",
       "q": 4,
       "r": -1
+    },
+    {
+      "id": "acao_mwmehl9u_ejqa3xf7_descanso_1",
+      "day": 3,
+      "title": "Descanso concluído",
+      "text": "O viajante recuperou as forças e um novo dia começou.",
+      "q": -2,
+      "r": 4
+    },
+    {
+      "id": "acao_mwmehl9u_ejqa3xf7_descanso_2",
+      "day": 4,
+      "title": "Descanso concluído",
+      "text": "O viajante recuperou as forças e um novo dia começou.",
+      "q": 0,
+      "r": -3
+    },
+    {
+      "id": "acao_mwmehl9u_ejqa3xf7",
+      "day": 4,
+      "title": "mundo: registrar reflexão do Viajante sobre sua existência",
+      "text": "No quarto dia, entre ruínas, o Viajante contempla um mundo onde ainda não encontrou ninguém. Seria ele um deus? A pergunta permanece sem resposta. Nenhum poder desperta, nenhum título lhe é concedido. Por enquanto, ele apenas observa.",
+      "q": 1,
+      "r": -3
     }
   ]
 }
