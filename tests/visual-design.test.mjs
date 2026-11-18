@@ -36,3 +36,9 @@ test('Build publica os recursos visuais e preserva o world.json oficial', () => 
   assert.ok(world.events.length > 0);
   assert.match(css, /Sobrevivência Imersiva|\.theme-immersive|\.map-vignette/);
 });
+test('reações divinas persistidas aparecem no mapa e no histórico com texto seguro',()=>{
+  assert.match(app, /world\.manifestations\?\.find/);
+  assert.match(app, /event\.kind === 'divine'/);
+  assert.match(app, /\.textContent = event\.text/);
+  assert.match(css, /\.event\.divine-event/);
+});

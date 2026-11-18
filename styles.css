@@ -310,6 +310,11 @@ button:focus-visible,textarea:focus-visible,a:focus-visible,.tile:focus-visible{
 .event span{display:block;font-size:10px;letter-spacing:.18em;font-weight:800;color:#89a087;text-transform:uppercase}
 .event strong{display:block;margin:6px 0;font-size:15px;color:#f2e4bf;font-weight:700;line-height:1.35}
 .event p{font-size:13px;line-height:1.6;color:#aeb6a4}
+.event.divine-event{background:linear-gradient(90deg,rgba(139,91,175,.16),rgba(21,23,27,0) 83%);border-left:2px solid rgba(218,174,255,.55)}
+.event.divine-event::before{background:#dcaaff;box-shadow:0 0 0 4px rgba(220,170,255,.15),0 0 16px rgba(222,164,255,.35)}
+.event.divine-event strong{color:#f0d6ff}
+.event.divine-event span{color:#d6b6f3}
+
 
 .toast{
   position:fixed;left:50%;bottom:28px;transform:translate(-50%,10px);z-index:10;pointer-events:none;

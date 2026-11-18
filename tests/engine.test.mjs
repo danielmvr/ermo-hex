@@ -151,3 +151,103 @@ test('proposta v1 mantém compatibilidade sem gastar um dia por ação',()=>{
   assert.equal(r.day,1);
   assert.equal(r.player.energy,ENERGY_MAX-1);
 });
+
+const divine=(reaction, action={type:'observar'}, override={})=>({
+  schema:'ermo.action.v3',baseRevision:0,commandId:'divine_test_1',
+  journey:[], action,story:'A jornada prossegue e o mundo reage.',
+  commitMessage:'mundo: receber reação divina',reaction,...override
+});
+const r0=(intensity='sutil',verdict='surpreender',effect={type:'nenhum'})=>({
+  intensity,verdict,title:'O mundo responde',text:'Uma resposta atravessa o silêncio.',effect
+});
+test('v3: reação sutil cria evento narrativo sem mexer no mundo físico',()=>{
+  const next=applyProposal(world,divine(r0()));
+  assert.equal(next.revision,1);
+  assert.equal(next.day,1);
+  assert.deepEqual(next.player.inventory,world.player.inventory);
+  assert.equal(next.player.energy,ENERGY_MAX);
+  assert.equal(next.events.at(-1).kind,'divine');
+  assert.equal(next.events.at(-1).intensity,'sutil');
+  assert.equal(next.events.at(-2).id,'divine_test_1');
+  assert.equal(world.events.length,1);
+});
+test('v3: bênção média concede recurso real e registra veredito',()=>{
+  const next=applyProposal(world,divine(r0('media','conceder',{type:'recurso',resource:'alimento',amount:2})));
+  assert.equal(next.player.inventory.alimento,world.player.inventory.alimento+2);
+  assert.equal(next.events.at(-1).verdict,'conceder');
+  assert.equal(next.events.at(-1).effect,'recurso');
+});
+test('v3: reveses não podem tornar inventário ou energia negativos',()=>{
+  const poor=structuredClone(world);poor.player.inventory.madeira=0;
+  assert.throws(()=>applyProposal(poor,divine(r0('media','negar',{type:'recurso',resource:'madeira',amount:-1}))),/inventário negativo/);
+  const tired=structuredClone(world);tired.player.energy=1;
+  assert.throws(()=>applyProposal(tired,divine(r0('alta','negar',{type:'energia',amount:-2}))),/Energia da reação/);
+});
+test('v3: energia é alterada dentro dos limites sem avançar calendário',()=>{
+  const w=structuredClone(world);w.player.energy=9;
+  const next=applyProposal(w,divine(r0('media','conceder',{type:'energia',amount:2})));
+  assert.equal(next.player.energy,11);
+  assert.equal(next.day,1);
+  assert.throws(()=>applyProposal(world,divine(r0('media','conceder',{type:'energia',amount:1}))),/Energia da reação/);
+});
+test('v3: revelação média descobre vizinho sem marcar visita',()=>{
+  const w=structuredClone(world);
+  const tile=w.hexes.find(h=>axialDistance(h,w.player.position)===1);
+  tile.discovered=false;tile.visited=false;
+  const next=applyProposal(w,divine(r0('media','surpreender',{type:'revelar',q:tile.q,r:tile.r})));
+  const revealed=next.hexes.find(h=>h.q===tile.q && h.r===tile.r);
+  assert.equal(revealed.discovered,true);
+  assert.equal(revealed.visited,false);
+});
+test('v3: revelação fora do alcance é proibida',()=>{
+  assert.throws(()=>applyProposal(world,divine(r0('media','surpreender',{type:'revelar',q:5,r:-5}))),/fora de alcance/);
+});
+test('v3: intensidade alta cria uma manifestação permanente visitável',()=>{
+  const next=applyProposal(world,divine(r0('alta','surpreender',{type:'manifestar',name:'Luz do Primeiro Dia'})));
+  assert.equal(next.manifestations.length,1);
+  assert.deepEqual([next.manifestations[0].q,next.manifestations[0].r],[0,0]);
+  assert.equal(next.manifestations[0].name,'Luz do Primeiro Dia');
+  assert.equal(validateWorld(next),true);
+  assert.throws(()=>applyProposal(next,divine(r0('alta','conceder',{type:'manifestar',name:'Segunda Luz'}),undefined,{
+    baseRevision:1,commandId:'divine_test_2'
+  })),/já possui uma manifestação/);
+});
+test('v3: veto médio impede construção, preserva energia e registra tentativa',()=>{
+  const reaction=r0('media','negar',{type:'vetar_acao'});
+  const next=applyProposal(world,divine(reaction,{type:'construir',structure:'abrigo'}));
+  assert.deepEqual(next.player.inventory,world.player.inventory);
+  assert.equal(next.player.energy,ENERGY_MAX);
+  assert.deepEqual(next.hexes.find(h=>h.q===0&&h.r===0).structures,[]);
+  assert.match(next.events.at(-2).title,/Intenção contrariada/);
+  assert.match(next.events.at(-2).text,/foi negado/);
+  assert.equal(next.events.at(-1).verdict,'negar');
+});
+test('v3: veto não pula validação da ação original',()=>{
+  const reaction=r0('alta','negar',{type:'vetar_acao'});
+  assert.throws(()=>applyProposal(world,divine(reaction,{type:'coletar',resource:'alimento',amount:9})),/Coleta inválida/);
+});
+test('v3: reação sutil não pode conceder recurso nem vetar',()=>{
+  assert.throws(()=>applyProposal(world,divine(r0('sutil','conceder',{type:'recurso',resource:'pedra',amount:1}))),/Reação sutil/);
+  assert.throws(()=>applyProposal(world,divine(r0('sutil','negar',{type:'vetar_acao'}))),/Reação sutil|Veto exige/);
+});
+test('v3: limites, formato e comandos perigosos são rejeitados',()=>{
+  assert.throws(()=>applyProposal(world,divine(r0('media','conceder',{type:'recurso',resource:'madeira',amount:3}))),/fora do limite/);
+  assert.throws(()=>applyProposal(world,divine(r0('media','surpreender',{type:'manifestar',name:'Sinal'}))),/intensidade alta/);
+  assert.throws(()=>applyProposal(world,divine(r0('alta','conceder',{type:'manifestar',name:'X'.repeat(37)}))),/Nome de manifestação/);
+  assert.throws(()=>applyProposal(world,divine(r0('alta','negar',{type:'vetar_acao',script:'exec'}))),/Campos não autorizados/);
+  assert.throws(()=>applyProposal(world,divine({...r0(),mudar_regras:'sem validação'})),/Campos não autorizados/);
+  assert.throws(()=>applyProposal(world,divine(undefined)),/Objeto malformado/);
+});
+test('v1 e v2 seguem compatíveis, mas não aceitam reação embutida',()=>{
+  assert.equal(applyProposal(world,action()).revision,1);
+  assert.equal(applyProposal(world,v2()).revision,1);
+  assert.throws(()=>applyProposal(world,v2([], {type:'observar'}, {reaction:r0()})),/Campos não autorizados/);
+});
+test('o validador impede marca persistente em lugar oculto ou com ID repetido',()=>{
+  const next=applyProposal(world,divine(r0('alta','surpreender',{type:'manifestar',name:'Luz'})));
+  const invalid=structuredClone(next);
+  invalid.manifestations.push({...invalid.manifestations[0]});
+  assert.throws(()=>validateWorld(invalid),/Manifestação persistida inválida/);
+  invalid.manifestations=[{...next.manifestations[0],q:5,r:-5}];
+  assert.throws(()=>validateWorld(invalid),/Manifestação em terreno oculto/);
+});
