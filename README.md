@@ -16,8 +16,8 @@ Repositório: https://github.com/danielmvr/ermo-hex
 ## Energia e calendário
 
 - Energia máxima: **12**. Cada hexágono caminhado consome **1**.
-- Ações interpretadas: coletar **1**, construir **2**, nomear **1**, observar **0** pontos.
-- Em **energia 0**, o botão **Descansar · +1 dia** é habilitado. Descansar restaura para 12 e **avança exatamente um dia**.
+- Ações interpretadas: coletar **1**, construir **2**, nomear **1**, observar **0**, comer **0** pontos.
+- Em **energia 0**, o botão **Descansar · +1 dia** é habilitado. Descansar avança exatamente um dia e recupera energia conforme a fome.
 - Caminhar, conversar e confirmar ações **não** avançam o calendário por si só.
 - Máximo de **60 eventos** de caminhada/descanso por jornada ainda não confirmada; registre um commit para continuar.
 - Mundos criados antes da energia carregam com **12/12** sem perder o estado existente; a energia é gravada no próximo commit.
@@ -30,6 +30,14 @@ Repositório: https://github.com/danielmvr/ermo-hex
 4. Para interagir com a IA, digite até **100 caracteres**, clique em **Conversar com a inteligência**, confira e envie o contexto no ChatGPT. A resposta deve ser um objeto JSON `ermo.action.v2`.
 5. Entregue o JSON ao agente preparado com [CHAT_COMMIT_START.md](CHAT_COMMIT_START.md), ou abra [ERMO | Chat-Commit manual](https://github.com/danielmvr/ermo-hex/actions/workflows/chat-commit.yml) → **Run workflow** → `proposal_json`.
 6. Após os workflows de commit e publicação concluírem, clique **↻ Recarregar** no jogo. O navegador reconcilia o rascunho com o mundo remoto.
+
+## Sobrevivência: fome e refeição
+
+O ERMO agora mantém a fome em escala de **0 a 3**, sem cobrar refeições por dias antigos. A fome só aumenta quando o Viajante descansa sem comer: a primeira noite mantém recuperação de 12/12, a segunda recupera 9/12, e a partir da terceira apenas 6/12. Caminhar não aumenta a fome diretamente.
+
+`{"type":"comer"}` consome 1 alimento da mochila, zera a fome e recupera até 2 energia, mesmo quando o Viajante está exausto. O alimento **não é consumido automaticamente**. O botão **Preparar refeição · Copiar JSON** apenas gera a proposta para Chat-Commit, sem alterar o mundo antes do commit. A fome aparece ao lado do fôlego.
+
+Mundos antigos com `player.hunger` ausente começam em 0 sem penalidades retroativas. O `WORLD_CONTEXT.md` é regenerado junto ao `world.json` após cada ação oficial.
 
 ## Camada reativa do mundo (v0.4)
 
