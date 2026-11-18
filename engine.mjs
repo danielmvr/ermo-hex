@@ -1,6 +1,7 @@
 /** ERMO: regras determinísticas compartilhadas pelo navegador e pelo validador de commits. */
 export const SCHEMA = 'ermo.world.v1';
-export const PROPOSAL_SCHEMA = 'ermo.action.v2';
+export const PROPOSAL_SCHEMA = 'ermo.action.v3';
+export const V2_PROPOSAL_SCHEMA = 'ermo.action.v2';
 export const LEGACY_PROPOSAL_SCHEMA = 'ermo.action.v1';
 export const ENERGY_MAX = 12;
 export const MAX_JOURNEY = 60;
@@ -67,6 +68,19 @@ export function validateWorld(world) {
   if (!integer(world.player.position.q) || !integer(world.player.position.r) || !seen.has(tileKey(world.player.position))) throw new Error('Jogador fora do mapa.');
   if (!integer(energyOf(world)) || energyOf(world) < 0 || energyOf(world) > ENERGY_MAX) throw new Error('Energia inválida.');
   for (const res of ['madeira','pedra','alimento']) if (!integer(world.player.inventory[res]) || world.player.inventory[res] < 0) throw new Error('Inventário inválido.');
+  if (world.manifestations !== undefined) {
+    if (!Array.isArray(world.manifestations) || world.manifestations.length > world.hexes.length) throw new Error('Manifestações inválidas.');
+    const locations = new Set();
+    const ids = new Set();
+    for (const site of world.manifestations) {
+      if (!site || !cleanText(site.id, 90) || !cleanText(site.name, 36) ||
+          !integer(site.day) || site.day < 1 || site.day > world.day ||
+          !integer(site.q) || !integer(site.r) || !seen.has(tileKey(site)) ||
+          ids.has(site.id) || locations.has(tileKey(site))) throw new Error('Manifestação persistida inválida.');
+      ids.add(site.id); locations.add(tileKey(site));
+      if (!world.hexes.find(h => tileKey(h) === tileKey(site)).discovered) throw new Error('Manifestação em terreno oculto.');
+    }
+  }
   return true;
 }
 
@@ -107,19 +121,81 @@ export function simulateJourney(original, journey) {
   validateWorld(world);
   return {world, rests, moves};
 }
+/** As reações são decisões do agente executor, nunca código livre enviado pelo jogador. */
+const INTENSITIES = ['sutil', 'media', 'alta'];
+const VERDICTS = ['conceder', 'negar', 'surpreender'];
+function validateReaction(reaction) {
+  exactKeys(reaction, ['intensity','verdict','title','text','effect']);
+  if (!INTENSITIES.includes(reaction.intensity) || !VERDICTS.includes(reaction.verdict) ||
+      !cleanText(reaction.title, 68) || !cleanText(reaction.text, 240)) {
+    throw new Error('Reação divina inválida: intensidade, veredito ou narrativa.');
+  }
+  const fx = reaction.effect;
+  exactKeys(fx, ['type','resource','amount','q','r','name']);
+  const allowed = {
+    nenhum:['type'], recurso:['type','resource','amount'],
+    energia:['type','amount'], revelar:['type','q','r'],
+    manifestar:['type','name'], vetar_acao:['type']
+  };
+  if (!Object.hasOwn(allowed, fx.type)) throw new Error('Efeito divino não autorizado.');
+  exactKeys(fx, allowed[fx.type]);
+  if (reaction.intensity === 'sutil' && fx.type !== 'nenhum') throw new Error('Reação sutil não pode alterar recursos ou mapa.');
+  if (reaction.intensity !== 'alta' && fx.type === 'manifestar') throw new Error('Manifestação exige intensidade alta.');
+  if (fx.type === 'vetar_acao' && (reaction.intensity === 'sutil' || reaction.verdict !== 'negar')) {
+    throw new Error('Veto exige reação média/alta e veredito negar.');
+  }
+  if (fx.type === 'recurso' || fx.type === 'energia') {
+    const limit = reaction.intensity === 'alta' ? 3 : 2;
+    if (!integer(fx.amount) || fx.amount === 0 || Math.abs(fx.amount) > limit) throw new Error('Quantidade do efeito divino fora do limite.');
+    if (fx.type === 'recurso' && !['madeira','pedra','alimento'].includes(fx.resource)) throw new Error('Recurso divino desconhecido.');
+  }
+  if (fx.type === 'revelar' && (!integer(fx.q) || !integer(fx.r))) throw new Error('Coordenada de revelação inválida.');
+  if (fx.type === 'manifestar' && !cleanText(fx.name, 36)) throw new Error('Nome de manifestação inválido.');
+  return reaction;
+}
+function applyReactionEffect(world, reaction, commandId, actionType) {
+  const fx = reaction.effect;
+  if (fx.type === 'nenhum' || fx.type === 'vetar_acao') return;
+  if (fx.type === 'recurso') {
+    const total = world.player.inventory[fx.resource] + fx.amount;
+    if (total < 0) throw new Error('A reação divina não pode gerar inventário negativo.');
+    world.player.inventory[fx.resource] = total;
+  } else if (fx.type === 'energia') {
+    const total = world.player.energy + fx.amount;
+    if (total < 0 || total > ENERGY_MAX) throw new Error('Energia da reação fora dos limites do mundo.');
+    world.player.energy = total;
+  } else if (fx.type === 'revelar') {
+    const tile = world.hexes.find(h => h.q === fx.q && h.r === fx.r);
+    const radius = reaction.intensity === 'alta' ? 2 : 1;
+    if (!tile || axialDistance(world.player.position, tile) > radius) throw new Error('Revelação divina fora de alcance.');
+    tile.discovered = true;
+  } else if (fx.type === 'manifestar') {
+    const here = world.hexes.find(h => tileKey(h) === tileKey(world.player.position));
+    if (world.manifestations?.some(s => tileKey(s) === tileKey(here))) throw new Error('Este local já possui uma manifestação.');
+    world.manifestations ??= [];
+    world.manifestations.push({
+      id: commandId + '_manifestacao', name: fx.name.trim(),
+      day: world.day, q: here.q, r: here.r
+    });
+  }
+}
+
 /** Aplica somente ação declarativa, nunca executa código de IA ou do armazenamento local. */
 export function applyProposal(original, proposal) {
   validateWorld(original);
   if (proposal?.schema === LEGACY_PROPOSAL_SCHEMA) {
     exactKeys(proposal, ['schema','baseRevision','commandId','movement','action','story','commitMessage']);
-  } else {
+  } else if (proposal?.schema === V2_PROPOSAL_SCHEMA) {
     exactKeys(proposal, ['schema','baseRevision','commandId','journey','action','story','commitMessage']);
+  } else {
+    exactKeys(proposal, ['schema','baseRevision','commandId','journey','action','story','commitMessage','reaction']);
   }
-  if (![PROPOSAL_SCHEMA,LEGACY_PROPOSAL_SCHEMA].includes(proposal.schema)) throw new Error('Versão do contrato de ação inválida.');
+  if (![PROPOSAL_SCHEMA,V2_PROPOSAL_SCHEMA,LEGACY_PROPOSAL_SCHEMA].includes(proposal.schema)) throw new Error('Versão do contrato de ação inválida.');
   if (proposal.baseRevision !== original.revision) throw new Error(`Revisão desatualizada. Esperada ${original.revision}; recebida ${proposal.baseRevision}. Reabra o jogo e refaça a mensagem.`);
   if (!cleanText(proposal.commandId, 64) || !/^[A-Za-z0-9_-]+$/.test(proposal.commandId)) throw new Error('commandId inválido.');
   if (original.events.some(e => e.id === proposal.commandId)) throw new Error('Esta ação já foi aplicada.');
   if (!cleanText(proposal.story, 240) || !cleanText(proposal.commitMessage, 72)) throw new Error('Narrativa ou mensagem de commit inválida.');
+  const reaction = proposal.schema === PROPOSAL_SCHEMA ? validateReaction(proposal.reaction) : null;
   const legacy = proposal.schema === LEGACY_PROPOSAL_SCHEMA;
   if (legacy && (!Array.isArray(proposal.movement) || proposal.movement.length > 30)) throw new Error('Rota inválida: máximo 30 passos.');
   const journey = legacy ? proposal.movement.map(step => {
@@ -138,6 +214,10 @@ export function applyProposal(original, proposal) {
   if (world.player.energy < energyCost) throw new Error(`Energia insuficiente para ${action.type}.`);
   const here = world.hexes.find(h => tileKey(h) === tileKey(world.player.position));
   const inventory = world.player.inventory;
+  const beforeAction = reaction?.effect.type === 'vetar_acao' ? {
+    inventory: structuredClone(inventory), resources: structuredClone(here.resources),
+    structures: [...here.structures], name: here.name, energy: world.player.energy
+  } : null;
   if (action.type === 'coletar') {
     if (!['madeira','pedra','alimento'].includes(action.resource) || !integer(action.amount) || action.amount < 1 || action.amount > 3) throw new Error('Coleta inválida: recurso e quantidade de 1 a 3 exigidos.');
     if (here.resources[action.resource] < action.amount) throw new Error('Recurso insuficiente neste hexágono.');
@@ -155,9 +235,31 @@ export function applyProposal(original, proposal) {
     here.name = action.name.trim();
   }
   world.player.energy -= energyCost;
+  const veto = !!beforeAction;
+  if (veto) {
+    world.player.inventory = beforeAction.inventory;
+    world.player.energy = beforeAction.energy;
+    here.resources = beforeAction.resources;
+    here.structures = beforeAction.structures;
+    here.name = beforeAction.name;
+  } else if (reaction) {
+    applyReactionEffect(world, reaction, proposal.commandId, action.type);
+  }
   world.revision += 1;
   rests.forEach((rest,i) => world.events.push({id:`${proposal.commandId}_descanso_${i+1}`,day:rest.day,title:'Descanso concluído',text:'O viajante recuperou as forças e um novo dia começou.',q:rest.q,r:rest.r}));
-  world.events.push({id:proposal.commandId,day:world.day,title:proposal.commitMessage.trim(),text:proposal.story.trim(),q:world.player.position.q,r:world.player.position.r});
+  world.events.push({
+    id:proposal.commandId, day:world.day,
+    title: veto ? 'Intenção contrariada pelo mundo' : proposal.commitMessage.trim(),
+    text: veto ? 'O Viajante tentou ' + action.type + ', mas o efeito foi negado. ' + reaction.text.trim() : proposal.story.trim(),
+    q:world.player.position.q,r:world.player.position.r
+  });
+  if (reaction) world.events.push({
+    id:proposal.commandId + '_reacao',day:world.day,
+    title:reaction.title.trim(),text:reaction.text.trim(),
+    q:world.player.position.q,r:world.player.position.r,
+    kind:'divine',intensity:reaction.intensity,verdict:reaction.verdict,
+    effect:reaction.effect.type
+  });
   if (world.events.length > 100) world.events = [world.events[0],...world.events.slice(-99)];
   validateWorld(world);
   return world;
