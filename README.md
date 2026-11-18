@@ -103,3 +103,11 @@ habitats potenciais, não indivíduos simulados. Ruínas, relíquias e mistério
 e só se tornam descobertas do jogador após visitas reais.
 
 Testes: node --test tests/*.test.mjs. Publicação: node scripts/build-site.mjs.
+
+## ChatGPT: contexto oficial por URL (v0.5.1)
+
+O link **Conversar com a inteligência** transmite somente a fala (até 100 caracteres), a jornada local com `baseRevision` e `commandId`, e o endereço do [WORLD_CONTEXT.md](WORLD_CONTEXT.md). O mundo, suas regras, inventário, terrenos revelados e acontecimentos ficam no Markdown oficial, não na URL. O ChatGPT precisa abrir esse arquivo antes de interpretar a intenção. Caso a plataforma não consiga acessar o link, deve pedir o conteúdo em vez de adivinhar.
+
+O arquivo é regenerado e versionado **no mesmo commit de world.json** pelo `scripts/chat-commit.mjs`. Ao aplicar uma proposta manual via `scripts/apply-commit.mjs --apply`, ambos também são atualizados. `node scripts/world-context.mjs --check` detecta divergência. O GitHub Pages publica uma cópia do Markdown.
+
+O botão é um link HTML nativo com destino preparado antecipadamente (antes do clique). O preenchimento automático por `?q=` depende do comportamento do ChatGPT no navegador; caso seja bloqueado, use **Copiar contexto completo** e cole manualmente.
