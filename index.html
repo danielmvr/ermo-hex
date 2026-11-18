@@ -156,7 +156,12 @@
         <div class="panel-title"><span>✦ &nbsp; FÔLEGO DO VIAJANTE</span><span id="energy-value" class="energy-number">12/12</span></div>
         <div class="energy-inner">
           <progress id="energy-meter" max="12" value="12" aria-label="Energia atual"></progress>
-          <p>Andar custa 1 energia por hexágono. Quando sua energia zerar, o descanso fica disponível e um novo dia começa.</p>
+          <p>Andar custa 1 energia por hexágono. O descanso inicia outro dia; a fome acumulada pode reduzir o fôlego recuperado.</p>
+          <div class="hunger-status" role="status">
+            <span>✧ FOME</span><strong id="hunger-value">0/3</strong>
+          </div>
+          <p id="hunger-note" class="hunger-note">Sem refeições registradas. Alimentar-se consome 1 mantimento.</p>
+          <button id="meal-btn" class="meal-btn" type="button">PREPARAR REFEIÇÃO · COPIAR JSON</button>
           <button id="rest-btn" class="rest-btn" type="button" disabled>DESCANSAR · +1 DIA</button>
         </div>
       </section>
