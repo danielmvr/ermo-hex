@@ -1,0 +1,38 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 4,
+  "commandId": "acao_mwmi038a_v88rhhno",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -2
+    }
+  ],
+  "action": {
+    "type": "observar"
+  },
+  "story": "Na floresta, o Viajante questiona o sentido de caminhar sem aproveitar os recursos pelo caminho. Imagina recolher pequenas quantidades durante a jornada, mas nenhuma coleta automática é realizada.",
+  "commitMessage": "mundo: viajante reflete sobre coleta durante deslocamentos",
+  "reaction": {
+    "intensity": "media",
+    "verdict": "surpreender",
+    "title": "Uma dádiva entre os galhos",
+    "text": "Uma peça de madeira aparece entre seus pertences, presente inesperado da floresta. O mundo concede 1 madeira, mas ainda não transforma caminhada em coleta automática.",
+    "effect": {
+      "type": "recurso",
+      "resource": "madeira",
+      "amount": 1
+    }
+  }
+}
