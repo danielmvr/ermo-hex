@@ -72,7 +72,7 @@ export const renderWorldContext = function renderWorldContext(w) {
     'Responda com **um único objeto JSON válido**, sem Markdown e sem texto ao redor, neste contrato:',
     '',
     '```json',
-    '{"schema":"ermo.action.v2","baseRevision":5,"commandId":"id_da_jornada","journey":[],"action":{"type":"observar"},"story":"Consequência factual com até 240 caracteres","commitMessage":"mundo: síntese com até 72 caracteres"}',
+    JSON.stringify({schema:'ermo.action.v2',baseRevision:w.revision,commandId:'id_da_jornada',journey:[],action:{type:'observar'},story:'Consequência factual com até 240 caracteres',commitMessage:'mundo: síntese com até 72 caracteres'}),
     '```',
     '',
     '**Copie exatamente `baseRevision`, `commandId` e `journey` da mensagem recebida**, mesmo quando diferentes dos valores ilustrativos. Escolha somente `action`, `story` e `commitMessage`.',
