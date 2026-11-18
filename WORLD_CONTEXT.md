@@ -42,7 +42,7 @@ Se este documento não estiver acessível, diga isso e solicite o conteúdo, sem
 Responda com **um único objeto JSON válido**, sem Markdown e sem texto ao redor, neste contrato:
 
 ```json
-{"schema":"ermo.action.v2","baseRevision":5,"commandId":"id_da_jornada","journey":[],"action":{"type":"observar"},"story":"Consequência factual com até 240 caracteres","commitMessage":"mundo: síntese com até 72 caracteres"}
+{"schema":"ermo.action.v2","baseRevision":6,"commandId":"id_da_jornada","journey":[],"action":{"type":"observar"},"story":"Consequência factual com até 240 caracteres","commitMessage":"mundo: síntese com até 72 caracteres"}
 ```
 
 **Copie exatamente `baseRevision`, `commandId` e `journey` da mensagem recebida**, mesmo quando diferentes dos valores ilustrativos. Escolha somente `action`, `story` e `commitMessage`.
@@ -53,8 +53,8 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
 ```json
 {
   "schema": "ermo.context.v1",
-  "revision": 5,
-  "dia": 5,
+  "revision": 6,
+  "dia": 6,
   "seed": "ermo-001",
   "raioHistorico": 5,
   "atlas": {
@@ -66,12 +66,12 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     "id": "pioneiro",
     "nome": "Viajante",
     "posicao": {
-      "q": 4,
-      "r": -2
+      "q": 11,
+      "r": -13
     },
-    "energia": 7,
+    "energia": 0,
     "energiaMaxima": 12,
-    "fome": 0,
+    "fome": 1,
     "fomeMaxima": 3,
     "ultimaRefeicaoDia": null,
     "inventario": {
@@ -82,13 +82,13 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     "embarcacao": null
   },
   "terrenoAtual": {
-    "q": 4,
-    "r": -2,
-    "terreno": "floresta",
+    "q": 11,
+    "r": -13,
+    "terreno": "campina",
     "recursos": {
-      "madeira": 7,
+      "madeira": 2,
       "pedra": 1,
-      "alimento": 2
+      "alimento": 5
     },
     "construcoes": [],
     "nome": null
@@ -854,6 +854,7 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
       "q": 5,
       "r": -2,
       "terreno": "campina",
+      "visitado": true,
       "recursos": {
         "madeira": 2,
         "pedra": 1,
@@ -869,37 +870,703 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
         "pedra": 5,
         "alimento": 1
       }
+    },
+    {
+      "q": 6,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 6,
+      "r": -2,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 6,
+      "r": -1,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 7,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 7,
+      "r": -2,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 7,
+      "r": -1,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 8,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 8,
+      "r": -2,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 8,
+      "r": -1,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -12,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -11,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -10,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -9,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -8,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -7,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -6,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 9,
+      "r": -5,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 9,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -2,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 9,
+      "r": -1,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 10,
+      "r": -13,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -12,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -11,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -10,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -9,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -8,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -7,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -6,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -5,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 10,
+      "r": -4,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 10,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 10,
+      "r": -2,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 10,
+      "r": -1,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
+    },
+    {
+      "q": 11,
+      "r": -14,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -13,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -12,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -11,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -10,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -9,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -8,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -7,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -6,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -5,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -4,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 11,
+      "r": -3,
+      "terreno": "colinas",
+      "bioma": "colinas-rochosas",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      }
+    },
+    {
+      "q": 11,
+      "r": -2,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
+    },
+    {
+      "q": 12,
+      "r": -14,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 12,
+      "r": -13,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 12,
+      "r": -7,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 12,
+      "r": -6,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 12,
+      "r": -5,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 12,
+      "r": -4,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
+    },
+    {
+      "q": 12,
+      "r": -3,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
+    },
+    {
+      "q": 13,
+      "r": -7,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": 13,
+      "r": -6,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
+    },
+    {
+      "q": 13,
+      "r": -5,
+      "terreno": "oceano",
+      "bioma": "oceano",
+      "regiao": "oceano",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 0
+      }
     }
   ],
+  "descobertas": [
+    "misterio-022",
+    "regional-255"
+  ],
   "eventosRecentes": [
-    {
-      "dia": 1,
-      "titulo": "O primeiro despertar",
-      "descricao": "Um viajante acordou em uma terra sem nome. O resto ainda não aconteceu.",
-      "q": 0,
-      "r": 0
-    },
-    {
-      "dia": 2,
-      "titulo": "mundo: construir primeiro abrigo na futura vila",
-      "descricao": "O Viajante escolhe a floresta para iniciar sua futura vila. Com 3 madeiras e 1 pedra de seu inventário, ergue o primeiro abrigo. Ainda não há uma vila, mas agora existe um lugar para começar.",
-      "q": 4,
-      "r": -1
-    },
-    {
-      "dia": 3,
-      "titulo": "Descanso concluído",
-      "descricao": "O viajante recuperou as forças e um novo dia começou.",
-      "q": -2,
-      "r": 4
-    },
-    {
-      "dia": 4,
-      "titulo": "Descanso concluído",
-      "descricao": "O viajante recuperou as forças e um novo dia começou.",
-      "q": 0,
-      "r": -3
-    },
     {
       "dia": 4,
       "titulo": "mundo: registrar reflexão do Viajante sobre sua existência",
@@ -949,6 +1616,44 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
       "descricao": "Uma peça de madeira aparece entre seus pertences, presente inesperado da floresta. O mundo concede 1 madeira, mas ainda não transforma caminhada em coleta automática.",
       "q": 4,
       "r": -2,
+      "tipo": "divine"
+    },
+    {
+      "dia": 6,
+      "titulo": "Descanso concluído",
+      "descricao": "O Viajante descansou e iniciou um novo dia. A fome agora é 1/3.",
+      "q": 11,
+      "r": -3
+    },
+    {
+      "dia": 6,
+      "titulo": "Descoberta: Mistério Antigo 22",
+      "descricao": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": 11,
+      "r": -3,
+      "tipo": "discovery"
+    },
+    {
+      "dia": 6,
+      "titulo": "Descoberta: Vestígio Regional 255",
+      "descricao": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": 10,
+      "r": -9,
+      "tipo": "discovery"
+    },
+    {
+      "dia": 6,
+      "titulo": "mundo: viajante questiona a fome e a ausência de refeições",
+      "descricao": "O Viajante sente fraqueza e questiona a fome. Possui 3 alimentos, mas não há registro de refeições. Recorda ter recolhido recursos pelo caminho, embora a coleta automática não exista. Sem energia ao final da jornada, apenas observa.",
+      "q": 11,
+      "r": -13
+    },
+    {
+      "dia": 6,
+      "titulo": "A primeira lei da fome",
+      "descricao": "O mundo passa a registrar a necessidade de comer. Um descanso sem refeição deixa a fome em 1/3. Os três alimentos permanecem na mochila: somente uma refeição escolhida poderá saciá-lo.",
+      "q": 11,
+      "r": -13,
       "tipo": "divine"
     }
   ]
