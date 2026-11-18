@@ -1,0 +1,143 @@
+{
+  "schema": "ermo.action.v2",
+  "baseRevision": 1,
+  "commandId": "acao_mwmehl9u_ejqa3xf7",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 3,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": 1,
+      "r": 0
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 1
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 2
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 3
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 4
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 5
+    },
+    {
+      "type": "mover",
+      "q": 1,
+      "r": 4
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": 4
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": 4
+    },
+    {
+      "type": "mover",
+      "q": -2,
+      "r": 4
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": 4
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": 3
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": 2
+    },
+    {
+      "type": "mover",
+      "q": -4,
+      "r": 2
+    },
+    {
+      "type": "mover",
+      "q": -5,
+      "r": 2
+    },
+    {
+      "type": "mover",
+      "q": -5,
+      "r": 1
+    },
+    {
+      "type": "mover",
+      "q": -5,
+      "r": 0
+    },
+    {
+      "type": "mover",
+      "q": -4,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": -2,
+      "r": -1
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": -3
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": 1,
+      "r": -3
+    }
+  ],
+  "action": {
+    "type": "observar"
+  },
+  "story": "No quarto dia, entre ruínas, o Viajante contempla um mundo onde ainda não encontrou ninguém. Seria ele um deus? A pergunta permanece sem resposta. Nenhum poder desperta, nenhum título lhe é concedido. Por enquanto, ele apenas observa.",
+  "commitMessage": "mundo: registrar reflexão do Viajante sobre sua existência"
+}
