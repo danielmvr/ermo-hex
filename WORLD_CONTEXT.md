@@ -73,6 +73,7 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     "energiaMaxima": 12,
     "fome": 0,
     "fomeMaxima": 3,
+    "ultimaRefeicaoDia": null,
     "inventario": {
       "madeira": 1,
       "pedra": 1,
