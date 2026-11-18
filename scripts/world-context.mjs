@@ -20,7 +20,7 @@ export const renderWorldContext = function renderWorldContext(w) {
     schema:'ermo.context.v1',
     revision:w.revision,dia:w.day,seed:w.seed,raioHistorico:w.radius,
     atlas:{raio:60,hexagonos:10981,descricao:'A geografia nova é gerada deterministicamente por world-geography.mjs. Hexágonos não revelados não são conhecidos pelo jogador.'},
-    jogador:{id:w.player.id,nome:w.player.name,posicao:position,energia:w.player.energy??12,energiaMaxima:12,fome:w.player.hunger??0,fomeMaxima:3,inventario:w.player.inventory,embarcacao:w.player.vessel??null},
+    jogador:{id:w.player.id,nome:w.player.name,posicao:position,energia:w.player.energy??12,energiaMaxima:12,fome:w.player.hunger??0,fomeMaxima:3,ultimaRefeicaoDia:w.player.lastMealDay??null,inventario:w.player.inventory,embarcacao:w.player.vessel??null},
     terrenoAtual:current?{q:current.q,r:current.r,terreno:current.terrain,recursos:current.resources,construcoes:current.structures,nome:current.name||null}:null,
     hexagonosRevelados:known,
     ...(w.discoveries?.length?{descobertas:w.discoveries}:{}),
