@@ -1,0 +1,43 @@
+name: ERMO | Chat-Commit manual
+on:
+  workflow_dispatch:
+    inputs:
+      proposal_json:
+        description: 'Cole o objeto JSON completo devolvido pelo chatbot (ermo.action.v1)'
+        required: true
+        type: string
+concurrency:
+  group: ermo-world-main
+  cancel-in-progress: false
+jobs:
+  commit-world:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preparar JSON sem executar texto recebido
+        env:
+          ERMO_PROPOSAL_JSON: ${{ inputs.proposal_json }}
+        run: node -e "require('node:fs').writeFileSync('proposta.json', process.env.ERMO_PROPOSAL_JSON, 'utf8')"
+      - name: Criar commit após validações e testes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          node scripts/chat-commit.mjs proposta.json --push
+  deploy:
+    needs: commit-world
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
