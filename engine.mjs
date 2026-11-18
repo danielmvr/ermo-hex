@@ -80,6 +80,9 @@ export function validateWorld(world) {
   if (!integer(world.player.position.q) || !integer(world.player.position.r) || !seen.has(tileKey(world.player.position))) throw new Error('Jogador fora do mapa.');
   if (!integer(energyOf(world)) || energyOf(world) < 0 || energyOf(world) > ENERGY_MAX) throw new Error('Energia inválida.');
   if (!integer(hungerOf(world)) || hungerOf(world) < 0 || hungerOf(world) > HUNGER_MAX) throw new Error('Fome inválida.');
+  if (world.player.lastMealDay !== undefined && (
+    !integer(world.player.lastMealDay) || world.player.lastMealDay < 1 || world.player.lastMealDay > world.day
+  )) throw new Error('Dia da refeição inválido.');
   for (const res of ['madeira','pedra','alimento']) if (!integer(world.player.inventory[res]) || world.player.inventory[res] < 0) throw new Error('Inventário inválido.');
   if (world.player.vessel !== undefined && world.player.vessel !== 'jangada') throw new Error('Embarcação não autorizada.');
   if (world.discoveries !== undefined) {
@@ -164,8 +167,9 @@ export function simulateJourney(original, journey) {
     } else if (event?.type === 'descansar') {
       exactKeys(event, ['type']);
       if (world.player.energy !== 0) throw new Error('Descanso permitido somente com energia esgotada.');
+      const fedToday = world.player.lastMealDay === world.day;
       world.day += 1;
-      world.player.hunger = Math.min(HUNGER_MAX, hungerOf(world) + 1);
+      world.player.hunger = fedToday ? 0 : Math.min(HUNGER_MAX, hungerOf(world) + 1);
       world.player.energy = REST_ENERGY[world.player.hunger];
       rests.push({day:world.day,q:position.q,r:position.r,hunger:world.player.hunger,energy:world.player.energy});
     } else {
@@ -272,7 +276,7 @@ export function applyProposal(original, proposal) {
   const beforeAction = reaction?.effect.type === 'vetar_acao' ? {
     inventory: structuredClone(inventory), resources: structuredClone(here.resources),
     structures: [...here.structures], name: here.name, energy: world.player.energy,
-    vessel:world.player.vessel, hunger:hungerOf(world)
+    vessel:world.player.vessel, hunger:hungerOf(world), lastMealDay:world.player.lastMealDay
   } : null;
   if (action.type === 'coletar') {
     if (!['madeira','pedra','alimento'].includes(action.resource) || !integer(action.amount) || action.amount < 1 || action.amount > 3) throw new Error('Coleta inválida: recurso e quantidade de 1 a 3 exigidos.');
@@ -304,6 +308,7 @@ export function applyProposal(original, proposal) {
     if (inventory.alimento < 1) throw new Error('Sem alimento para fazer uma refeição.');
     inventory.alimento -= 1;
     world.player.hunger = 0;
+    world.player.lastMealDay = world.day;
     world.player.energy = Math.min(ENERGY_MAX, world.player.energy + 2);
   }
   world.player.energy -= energyCost;
@@ -312,6 +317,8 @@ export function applyProposal(original, proposal) {
     world.player.inventory = beforeAction.inventory;
     world.player.energy = beforeAction.energy;
     world.player.hunger = beforeAction.hunger;
+    if (beforeAction.lastMealDay === undefined) delete world.player.lastMealDay;
+    else world.player.lastMealDay = beforeAction.lastMealDay;
     here.resources = beforeAction.resources;
     here.structures = beforeAction.structures;
     here.name = beforeAction.name;
