@@ -1,6 +1,6 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 4,
+  "revision": 5,
   "day": 5,
   "seed": "ermo-001",
   "radius": 5,
@@ -8,15 +8,15 @@
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 3,
-      "r": -1
+      "q": 4,
+      "r": -2
     },
     "inventory": {
-      "madeira": 0,
+      "madeira": 1,
       "pedra": 1,
       "alimento": 3
     },
-    "energy": 10
+    "energy": 7
   },
   "hexes": [
     {
@@ -1143,7 +1143,7 @@
       "q": 4,
       "r": -3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1158,7 +1158,7 @@
       "r": -2,
       "terrain": "floresta",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -1243,7 +1243,7 @@
       "q": 5,
       "r": -3,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1372,6 +1372,26 @@
       "intensity": "sutil",
       "verdict": "surpreender",
       "effect": "nenhum"
+    },
+    {
+      "id": "acao_mwmi038a_v88rhhno",
+      "day": 5,
+      "title": "mundo: viajante reflete sobre coleta durante deslocamentos",
+      "text": "Na floresta, o Viajante questiona o sentido de caminhar sem aproveitar os recursos pelo caminho. Imagina recolher pequenas quantidades durante a jornada, mas nenhuma coleta automática é realizada.",
+      "q": 4,
+      "r": -2
+    },
+    {
+      "id": "acao_mwmi038a_v88rhhno_reacao",
+      "day": 5,
+      "title": "Uma dádiva entre os galhos",
+      "text": "Uma peça de madeira aparece entre seus pertences, presente inesperado da floresta. O mundo concede 1 madeira, mas ainda não transforma caminhada em coleta automática.",
+      "q": 4,
+      "r": -2,
+      "kind": "divine",
+      "intensity": "media",
+      "verdict": "surpreender",
+      "effect": "recurso"
     }
   ]
 }
