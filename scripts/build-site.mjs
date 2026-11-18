@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
-for (const file of ['index.html','styles.css','app.mjs','engine.mjs','persistence.mjs','chat-link.mjs','world.json']) {
+for (const file of ['index.html','styles.css','app.mjs','engine.mjs','persistence.mjs','chat-link.mjs','world-geography.mjs','world-view.mjs','world-ui.mjs','world.json']) {
   await cp(path.join(root,file), path.join(dist,file));
 }
 await cp(path.join(root,'assets'), path.join(dist,'assets'), { recursive: true });

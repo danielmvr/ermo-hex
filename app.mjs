@@ -1,6 +1,8 @@
 import { makeWorld, axialDistance, tileKey, TERRAINS, ENERGY_MAX, MAX_JOURNEY, energyOf, validateWorld, simulateJourney } from './engine.mjs';
 import { cachedWorld, cacheWorld, saveDraft, clearDraft, restoreDraft } from './persistence.mjs';
 import { buildInterpreterPrompt, chatDestination } from './chat-link.mjs';
+import { ATLAS_CELLS, visibleHexes, observedHex, discoverySummary } from './world-view.mjs';
+import { updateWorldPanel, drawWorldAtlas, bindWorldAtlas } from './world-ui.mjs';
 
 const $ = id => document.getElementById(id);
 const svgNS = 'http://www.w3.org/2000/svg';
@@ -29,6 +31,10 @@ const TERRAIN_STYLE = {
   ruinas: {
     fill: 'url(#fill-ruinas)', icon: 'ruinas', title: 'Ruínas Cobertas',
     tags:['vestígios antigos','história adormecida','pedra trabalhada']
+  },
+  oceano: {
+    fill: 'url(#fill-oceano)', icon: 'lago', title: 'Mar Aberto',
+    tags:['águas profundas','navegação por jangada','mar aberto']
   }
 };
 const TERRAIN_TEXT = {
@@ -36,7 +42,8 @@ const TERRAIN_TEXT = {
   floresta: 'Árvores densas abafam o som do mundo. Há abrigo, madeira e a sensação de que algo observa além da mata.',
   colinas: 'Ondulações de terra e pedra ampliam a visão do entorno. Um bom ponto para enxergar caminhos e perigos.',
   montanha: 'Paredões frios e altos dominam o horizonte. Cada passo exige cautela, mas a pedra aqui é abundante.',
-  lago: 'Água calma à distância, refletindo a luz baixa. Belo à vista, mas ainda inalcançável para travessia.',
+  lago: 'Água calma à distância, refletindo a luz baixa. Uma jangada permite navegar por estas águas.',
+  oceano: 'O oceano se estende além do horizonte. Uma embarcação e energia são necessárias para atravessá-lo.',
   ruinas: 'Vestígios de um passado esquecido surgem entre pedras e sombras. Há sinais de uso antigo e material reaproveitável.'
 };
 let base;
@@ -47,7 +54,7 @@ let messageId = '';
 let toastTimer = 0;
 try { storage = window.localStorage; } catch { storage = null; }
 
-const stepsCount = () => journey.filter(e => e.type === 'mover').length;
+const stepsCount = () => journey.filter(e => e.type === 'mover' || e.type === 'navegar').length;
 const restCount = () => journey.filter(e => e.type === 'descansar').length;
 const chars = s => [...s].length;
 const dom = (tag, attrs = {}, text = '') => {
@@ -56,12 +63,12 @@ const dom = (tag, attrs = {}, text = '') => {
   if (text) el.textContent = text;
   return el;
 };
-const coords = ({ q, r }) => ({ x: 415 + Math.sqrt(3) * SIZE * (q + r / 2), y: 311 + 1.5 * SIZE * r });
+const coords = ({ q, r }) => ({ x: 415 + Math.sqrt(3) * SIZE * ((q-world.player.position.q) + (r-world.player.position.r)/2), y: 311 + 1.5 * SIZE * (r-world.player.position.r) });
 const points = ({ x, y }, radius = SIZE - 1.7) => Array.from({ length: 6 }, (_, i) => {
   const t = (Math.PI / 180) * (60 * i - 30);
   return `${(x + radius * Math.cos(t)).toFixed(2)},${(y + radius * Math.sin(t)).toFixed(2)}`;
 }).join(' ');
-const getHex = p => world.hexes.find(h => h.q === p.q && h.r === p.r);
+const getHex = p => observedHex(world,p.q,p.r);
 const isAdjacent = h => axialDistance(h, world.player.position) === 1;
 
 function persistDraft() {
@@ -87,6 +94,7 @@ function buildDefs() {
     colinas: ['#ba9868', '#735331'],
     montanha: ['#c7d0d7', '#5d6671'],
     lago: ['#53c9db', '#135569'],
+    oceano: ['#174d72','#081f3a'],
     ruinas: ['#b29a84', '#5a473c']
   };
   for (const [name, [a, b]] of Object.entries(gradients)) {
@@ -121,7 +129,7 @@ function addTerrainGlyph(group, terrain, p) {
     glyph.append(make('path', { d: `M ${p.x - 14} ${p.y + 12} Q ${p.x - 1} ${p.y + 1} ${p.x + 15} ${p.y + 10}`, fill: 'none', stroke: '#f7efd0', 'stroke-width': '1.8', opacity: '.8' }));
   } else if (terrain === 'montanha') {
     glyph.append(make('path', { d: `M ${p.x - 17} ${p.y + 10} L ${p.x - 6} ${p.y - 12} L ${p.x + 1} ${p.y + 2} L ${p.x + 8} ${p.y - 8} L ${p.x + 18} ${p.y + 10} Z`, fill: 'rgba(255,255,255,.9)' }));
-  } else if (terrain === 'lago') {
+  } else if (terrain === 'lago' || terrain === 'oceano') {
     for (const offset of [-8, 0, 8]) glyph.append(make('path', { d: `M ${p.x - 14} ${p.y + offset / 2} Q ${p.x - 6} ${p.y - 4 + offset / 2} ${p.x + 2} ${p.y + offset / 2} T ${p.x + 16} ${p.y + offset / 2}`, fill: 'none', stroke: '#effefb', 'stroke-width': '2' }));
   } else if (terrain === 'ruinas') {
     glyph.append(make('path', { d: `M ${p.x - 14} ${p.y + 10} L ${p.x - 14} ${p.y - 8} L ${p.x - 4} ${p.y - 8} L ${p.x - 4} ${p.y + 10} M ${p.x + 4} ${p.y + 10} L ${p.x + 4} ${p.y - 8} L ${p.x + 14} ${p.y - 8} L ${p.x + 14} ${p.y + 10} M ${p.x - 4} ${p.y - 8} Q ${p.x} ${p.y - 15} ${p.x + 4} ${p.y - 8}`, fill: 'none', stroke: '#fbf3d6', 'stroke-width': '2' }));
@@ -135,7 +143,7 @@ function drawMap() {
   map.append(buildDefs());
   const layer = dom('g');
 
-  for (const h of world.hexes) {
+  for (const h of visibleHexes(world,9)) {
     const p = coords(h);
     const active = h.q === world.player.position.q && h.r === world.player.position.r;
     const adjacent = isAdjacent(h);
@@ -164,7 +172,7 @@ function drawMap() {
       map.firstChild.append(clip);
       const variant = ((h.q * 37 + h.r * 29) % 5 + 5) % 5;
       const texture = dom('image', {
-        href: `./assets/hex-${h.terrain}.webp`,
+        href: `./assets/hex-${h.terrain==='oceano'?'lago':h.terrain}.webp`,
         x: p.x - SIZE + 1, y: p.y - SIZE + 1,
         width: (SIZE - 1) * 2, height: (SIZE - 1) * 2,
         preserveAspectRatio: 'xMidYMid slice',
@@ -310,7 +318,8 @@ function drawAll() {
   $('official-revision').textContent = `Revisão ${base.revision} ${journey.length ? '· rascunho ativo' : '· sem pendências'}`;
   $('pending-rests').textContent = String(restCount());
   $('discovered').textContent = String(world.hexes.filter(h => h.discovered).length).padStart(2, '0');
-  $('total').textContent = String(world.hexes.length);
+  $('total').textContent = String(ATLAS_CELLS);
+  updateWorldPanel(world);
   $('steps').textContent = String(stepsCount());
   $('position').textContent = `${world.player.position.q}, ${world.player.position.r}`;
   const energy = energyOf(world);
@@ -353,11 +362,11 @@ function chooseHex(h) {
     flash('Escolha um hexágono vizinho para caminhar.');
     return;
   }
-  if (!TERRAINS[h.terrain].walkable) {
-    flash('Água profunda. Não é possível atravessar este hexágono.');
+  if (!TERRAINS[h.terrain].walkable && world.player.vessel!=='jangada') {
+    flash('Travessia marítima exige jangada. Construa uma na costa com madeira e pedra.');
     return;
   }
-  if (energyOf(world) === 0) {
+  if (energyOf(world) < (TERRAINS[h.terrain].walkable?1:2)) {
     flash('Sem energia. Use Descansar para iniciar um novo dia.');
     return;
   }
@@ -365,7 +374,9 @@ function chooseHex(h) {
     flash('Limite da jornada atingido. Registre o progresso no GitHub.');
     return;
   }
-  recordJourney({ type: 'mover', q: h.q, r: h.r }, `Território: ${h.name || TERRAINS[h.terrain].name}. Exploração salva neste navegador.`);
+  const sailing=!TERRAINS[h.terrain].walkable;
+  recordJourney({ type: sailing?'navegar':'mover', q: h.q, r: h.r },
+    `Território: ${h.name || TERRAINS[h.terrain].name}. Exploração salva neste navegador.`);
 }
 
 function restDay() {
@@ -535,6 +546,7 @@ async function refreshWorld() {
   else flash(`Mundo online carregado na revisão ${base.revision}.`);
 }
 
+bindWorldAtlas(()=>world);
 $('dialogue').addEventListener('input', () => {
   const len = chars($('dialogue').value);
   $('counter').textContent = `${len}/100`;
