@@ -1,23 +1,24 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 6,
-  "day": 6,
+  "revision": 7,
+  "day": 8,
   "seed": "ermo-001",
   "radius": 5,
   "player": {
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 11,
-      "r": -13
+      "q": 7,
+      "r": -17
     },
     "inventory": {
       "madeira": 1,
       "pedra": 1,
-      "alimento": 3
+      "alimento": 2
     },
-    "energy": 0,
-    "hunger": 1
+    "energy": 4,
+    "hunger": 0,
+    "lastMealDay": 8
   },
   "hexes": [
     {
@@ -2167,7 +2168,7 @@
       "biome": "campina",
       "region": "origem",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -2179,6 +2180,470 @@
     {
       "q": 12,
       "r": -14,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 10,
+      "r": -14,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 11,
+      "r": -15,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 12,
+      "r": -15,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 10,
+      "r": -15,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 11,
+      "r": -16,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 12,
+      "r": -16,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 9,
+      "r": -14,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 9,
+      "r": -15,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 10,
+      "r": -16,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -14,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -15,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 9,
+      "r": -16,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -14,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -15,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -16,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 6,
+      "r": -14,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 6,
+      "r": -15,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -16,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 6,
+      "r": -16,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -17,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -17,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 6,
+      "r": -17,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -18,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -18,
+      "terrain": "colinas",
+      "biome": "colinas-rochosas",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 5,
+        "alimento": 1
+      },
+      "structures": []
+    },
+    {
+      "q": 6,
+      "r": -18,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 7,
+      "r": -19,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 8,
+      "r": -19,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -16,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": 5,
+      "r": -17,
       "terrain": "campina",
       "biome": "campina",
       "region": "origem",
@@ -2335,10 +2800,66 @@
       "intensity": "alta",
       "verdict": "surpreender",
       "effect": "nenhum"
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg_descanso_1",
+      "day": 7,
+      "title": "Descanso concluído",
+      "text": "O Viajante descansou, mas a fome acumulada reduziu seu fôlego a 9/12.",
+      "q": 11,
+      "r": -13
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg_descanso_2",
+      "day": 8,
+      "title": "Descanso concluído",
+      "text": "O Viajante descansou, mas a fome acumulada reduziu seu fôlego a 6/12.",
+      "q": 7,
+      "r": -18
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg_descoberta_1",
+      "day": 8,
+      "title": "Descoberta: Vestígio Regional 18",
+      "text": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": 10,
+      "r": -15,
+      "kind": "discovery"
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg_descoberta_2",
+      "day": 8,
+      "title": "Descoberta: Vestígio Regional 155",
+      "text": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": 7,
+      "r": -17,
+      "kind": "discovery"
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg",
+      "day": 8,
+      "title": "mundo: viajante realiza refeição após longa jornada",
+      "text": "Após a longa jornada, o Viajante decide consumir uma unidade de alimento da mochila para saciar a fome e recuperar forças. A investigação do Vestígio Regional 155 permanece sem confirmação nesta ação.",
+      "q": 7,
+      "r": -17
+    },
+    {
+      "id": "acao_mwml79q0_bnon0kfg_reacao",
+      "day": 8,
+      "title": "O silêncio depois da fome",
+      "text": "O alimento traz alívio ao corpo cansado. O mundo não oferece respostas sobre o vestígio: desta vez, recuperar forças já é uma pequena conquista.",
+      "q": 7,
+      "r": -17,
+      "kind": "divine",
+      "intensity": "sutil",
+      "verdict": "surpreender",
+      "effect": "nenhum"
     }
   ],
   "discoveries": [
     "misterio-022",
-    "regional-255"
+    "regional-255",
+    "regional-018",
+    "regional-155"
   ]
 }
