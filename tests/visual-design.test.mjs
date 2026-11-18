@@ -42,3 +42,11 @@ test('reações divinas persistidas aparecem no mapa e no histórico com texto s
   assert.match(app, /\.textContent = event\.text/);
   assert.match(css, /\.event\.divine-event/);
 });
+
+test('sobrevivência mantém medidor e opção segura de refeição por Chat-Commit',()=>{
+  for(const id of ['hunger-value','hunger-note','meal-btn']) assert.match(html,new RegExp('id="'+id+'"'));
+  assert.match(app,/hungerOf\(world\)/);
+  assert.match(app,/function copyMeal\(/);
+  assert.match(app,/action: \{ type: 'comer' \}/);
+  assert.match(app,/addEventListener\('click', copyMeal\)/);
+});

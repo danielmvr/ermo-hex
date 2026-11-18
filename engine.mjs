@@ -5,8 +5,11 @@ export const PROPOSAL_SCHEMA = 'ermo.action.v3';
 export const V2_PROPOSAL_SCHEMA = 'ermo.action.v2';
 export const LEGACY_PROPOSAL_SCHEMA = 'ermo.action.v1';
 export const ENERGY_MAX = 12;
+export const HUNGER_MAX = 3;
 export const MAX_JOURNEY = 60;
-export const ACTION_ENERGY = Object.freeze({ coletar: 1, construir: 2, nomear: 1, observar: 0 });
+export const ACTION_ENERGY = Object.freeze({ coletar: 1, construir: 2, nomear: 1, observar: 0, comer: 0 });
+/** Primeira noite sem refeição conserva o vigor; fome acumulada compromete o próximo descanso. */
+export const REST_ENERGY = Object.freeze([12, 12, 9, 6]);
 export const TERRAINS = {
   campina: { name: 'Campina', resources: { madeira: 2, pedra: 1, alimento: 5 }, walkable: true },
   floresta: { name: 'Floresta', resources: { madeira: 7, pedra: 1, alimento: 2 }, walkable: true },
@@ -51,12 +54,13 @@ export function makeWorld(seed = 'ermo-001', radius = 5) {
   }
   return {
     schema: SCHEMA, revision: 0, day: 1, seed, radius,
-    player: { id: 'pioneiro', name: 'Viajante', position: { q:0, r:0 }, energy: ENERGY_MAX, inventory: { madeira: 3, pedra: 2, alimento: 2 } },
+    player: { id: 'pioneiro', name: 'Viajante', position: { q:0, r:0 }, energy: ENERGY_MAX, hunger: 0, inventory: { madeira: 3, pedra: 2, alimento: 2 } },
     hexes, events: [{ id: 'origem', day: 1, title: 'O primeiro despertar', text: 'Um viajante acordou em uma terra sem nome. O resto ainda não aconteceu.', q: 0, r: 0 }]
   };
 }
 /** Mundo legado (antes da energia) começa com a barra cheia sem modificar outras informações. */
 export function energyOf(world) { return world.player.energy === undefined ? ENERGY_MAX : world.player.energy; }
+export function hungerOf(world) { return world.player.hunger === undefined ? 0 : world.player.hunger; }
 export function validateWorld(world) {
   if (!world || world.schema !== SCHEMA || !integer(world.revision) || world.revision < 0 || !integer(world.day) || world.day < 1 || !integer(world.radius) || world.radius < 1) throw new Error('world.json inválido.');
   if (!Array.isArray(world.hexes) || !world.player?.position || !world.player?.inventory || !Array.isArray(world.events)) throw new Error('Estrutura do mundo inválida.');
@@ -75,6 +79,10 @@ export function validateWorld(world) {
   }
   if (!integer(world.player.position.q) || !integer(world.player.position.r) || !seen.has(tileKey(world.player.position))) throw new Error('Jogador fora do mapa.');
   if (!integer(energyOf(world)) || energyOf(world) < 0 || energyOf(world) > ENERGY_MAX) throw new Error('Energia inválida.');
+  if (!integer(hungerOf(world)) || hungerOf(world) < 0 || hungerOf(world) > HUNGER_MAX) throw new Error('Fome inválida.');
+  if (world.player.lastMealDay !== undefined && (
+    !integer(world.player.lastMealDay) || world.player.lastMealDay < 1 || world.player.lastMealDay > world.day
+  )) throw new Error('Dia da refeição inválido.');
   for (const res of ['madeira','pedra','alimento']) if (!integer(world.player.inventory[res]) || world.player.inventory[res] < 0) throw new Error('Inventário inválido.');
   if (world.player.vessel !== undefined && world.player.vessel !== 'jangada') throw new Error('Embarcação não autorizada.');
   if (world.discoveries !== undefined) {
@@ -159,9 +167,11 @@ export function simulateJourney(original, journey) {
     } else if (event?.type === 'descansar') {
       exactKeys(event, ['type']);
       if (world.player.energy !== 0) throw new Error('Descanso permitido somente com energia esgotada.');
+      const fedToday = world.player.lastMealDay === world.day;
       world.day += 1;
-      world.player.energy = ENERGY_MAX;
-      rests.push({day:world.day,q:position.q,r:position.r});
+      world.player.hunger = fedToday ? 0 : Math.min(HUNGER_MAX, hungerOf(world) + 1);
+      world.player.energy = REST_ENERGY[world.player.hunger];
+      rests.push({day:world.day,q:position.q,r:position.r,hunger:world.player.hunger,energy:world.player.energy});
     } else {
       throw new Error('Evento de jornada não autorizado. Use mover ou descansar.');
     }
@@ -256,7 +266,7 @@ export function applyProposal(original, proposal) {
   exactKeys(action, ['type','resource','amount','structure','name']);
   if (!Object.hasOwn(ACTION_ENERGY,action.type)) throw new Error('Ação não permitida.');
   const validParams = {
-    coletar: ['type','resource','amount'], construir:['type','structure'], nomear:['type','name'], observar:['type']
+    coletar: ['type','resource','amount'], construir:['type','structure'], nomear:['type','name'], observar:['type'], comer:['type']
   };
   exactKeys(action,validParams[action.type]);
   const energyCost = ACTION_ENERGY[action.type];
@@ -266,7 +276,7 @@ export function applyProposal(original, proposal) {
   const beforeAction = reaction?.effect.type === 'vetar_acao' ? {
     inventory: structuredClone(inventory), resources: structuredClone(here.resources),
     structures: [...here.structures], name: here.name, energy: world.player.energy,
-    vessel:world.player.vessel
+    vessel:world.player.vessel, hunger:hungerOf(world), lastMealDay:world.player.lastMealDay
   } : null;
   if (action.type === 'coletar') {
     if (!['madeira','pedra','alimento'].includes(action.resource) || !integer(action.amount) || action.amount < 1 || action.amount > 3) throw new Error('Coleta inválida: recurso e quantidade de 1 a 3 exigidos.');
@@ -294,12 +304,21 @@ export function applyProposal(original, proposal) {
   } else if (action.type === 'nomear') {
     if (!cleanText(action.name, 36)) throw new Error('Nome do local inválido (até 36 caracteres).');
     here.name = action.name.trim();
+  } else if (action.type === 'comer') {
+    if (inventory.alimento < 1) throw new Error('Sem alimento para fazer uma refeição.');
+    inventory.alimento -= 1;
+    world.player.hunger = 0;
+    world.player.lastMealDay = world.day;
+    world.player.energy = Math.min(ENERGY_MAX, world.player.energy + 2);
   }
   world.player.energy -= energyCost;
   const veto = !!beforeAction;
   if (veto) {
     world.player.inventory = beforeAction.inventory;
     world.player.energy = beforeAction.energy;
+    world.player.hunger = beforeAction.hunger;
+    if (beforeAction.lastMealDay === undefined) delete world.player.lastMealDay;
+    else world.player.lastMealDay = beforeAction.lastMealDay;
     here.resources = beforeAction.resources;
     here.structures = beforeAction.structures;
     here.name = beforeAction.name;
@@ -309,7 +328,14 @@ export function applyProposal(original, proposal) {
     applyReactionEffect(world, reaction, proposal.commandId, action.type);
   }
   world.revision += 1;
-  rests.forEach((rest,i) => world.events.push({id:`${proposal.commandId}_descanso_${i+1}`,day:rest.day,title:'Descanso concluído',text:'O viajante recuperou as forças e um novo dia começou.',q:rest.q,r:rest.r}));
+  rests.forEach((rest,i) => world.events.push({
+    id:`${proposal.commandId}_descanso_${i+1}`,day:rest.day,
+    title:'Descanso concluído',
+    text:rest.hunger >= 2
+      ? 'O Viajante descansou, mas a fome acumulada reduziu seu fôlego a ' + rest.energy + '/12.'
+      : 'O Viajante descansou e iniciou um novo dia. A fome agora é ' + rest.hunger + '/3.',
+    q:rest.q,r:rest.r
+  }));
   discoveredSites.forEach((site,i)=>world.events.push({
     id:`${proposal.commandId}_descoberta_${i+1}`,day:world.day,
     title:'Descoberta: '+site.name,
