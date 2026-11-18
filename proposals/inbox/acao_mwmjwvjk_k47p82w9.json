@@ -1,0 +1,119 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 5,
+  "commandId": "acao_mwmjwvjk_k47p82w9",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 5,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 6,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 8,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 9,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -2
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -3
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -4
+    },
+    {
+      "type": "mover",
+      "q": 12,
+      "r": -5
+    },
+    {
+      "type": "mover",
+      "q": 12,
+      "r": -6
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -6
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -6
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -7
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -8
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -9
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -10
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -11
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -12
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -13
+    }
+  ],
+  "action": {
+    "type": "observar"
+  },
+  "story": "O Viajante sente fraqueza e questiona a fome. Possui 3 alimentos, mas não há registro de refeições. Recorda ter recolhido recursos pelo caminho, embora a coleta automática não exista. Sem energia ao final da jornada, apenas observa.",
+  "commitMessage": "mundo: viajante questiona a fome e a ausência de refeições",
+  "reaction": {
+    "intensity": "alta",
+    "verdict": "surpreender",
+    "title": "A primeira lei da fome",
+    "text": "O mundo passa a registrar a necessidade de comer. Um descanso sem refeição deixa a fome em 1/3. Os três alimentos permanecem na mochila: somente uma refeição escolhida poderá saciá-lo.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
