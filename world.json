@@ -1,20 +1,20 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 2,
-  "day": 4,
+  "revision": 3,
+  "day": 5,
   "seed": "ermo-001",
   "radius": 5,
   "player": {
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 1,
-      "r": -3
+      "q": 2,
+      "r": -1
     },
     "inventory": {
       "madeira": 0,
       "pedra": 1,
-      "alimento": 2
+      "alimento": 3
     },
     "energy": 11
   },
@@ -486,7 +486,7 @@
       "r": -1,
       "terrain": "floresta",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -626,7 +626,7 @@
       "r": -2,
       "terrain": "floresta",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -780,7 +780,7 @@
       "r": -2,
       "terrain": "colinas",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -906,7 +906,7 @@
       "r": -3,
       "terrain": "floresta",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -920,7 +920,7 @@
       "r": -2,
       "terrain": "colinas",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -939,7 +939,7 @@
       "resources": {
         "madeira": 2,
         "pedra": 1,
-        "alimento": 5
+        "alimento": 4
       },
       "structures": []
     },
@@ -1017,7 +1017,7 @@
       "q": 3,
       "r": -4,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1031,7 +1031,7 @@
       "q": 3,
       "r": -3,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1336,6 +1336,22 @@
       "text": "No quarto dia, entre ruínas, o Viajante contempla um mundo onde ainda não encontrou ninguém. Seria ele um deus? A pergunta permanece sem resposta. Nenhum poder desperta, nenhum título lhe é concedido. Por enquanto, ele apenas observa.",
       "q": 1,
       "r": -3
+    },
+    {
+      "id": "acao_mwmguoo4_efzqe6u8_descanso_1",
+      "day": 5,
+      "title": "Descanso concluído",
+      "text": "O viajante recuperou as forças e um novo dia começou.",
+      "q": 2,
+      "r": -1
+    },
+    {
+      "id": "acao_mwmguoo4_efzqe6u8",
+      "day": 5,
+      "title": "mundo: coletar 1 alimento na campina após jornada",
+      "text": "Na campina, o Viajante aproveita a passagem para recolher 1 alimento, gastando 1 energia. A coleta é pontual: recolher recursos automaticamente durante deslocamentos ainda não faz parte das regras.",
+      "q": 2,
+      "r": -1
     }
   ]
 }
