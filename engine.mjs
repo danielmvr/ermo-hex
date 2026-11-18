@@ -1,3 +1,4 @@
+import { ATLAS_RADIUS, isInAtlas, generatedHex, buildAtlas, atlasDistance } from './world-geography.mjs';
 /** ERMO: regras determinísticas compartilhadas pelo navegador e pelo validador de commits. */
 export const SCHEMA = 'ermo.world.v1';
 export const PROPOSAL_SCHEMA = 'ermo.action.v3';
@@ -12,13 +13,15 @@ export const TERRAINS = {
   colinas: { name: 'Colinas', resources: { madeira: 2, pedra: 5, alimento: 1 }, walkable: true },
   montanha: { name: 'Montanha', resources: { madeira: 0, pedra: 7, alimento: 0 }, walkable: true },
   lago: { name: 'Lago', resources: { madeira: 0, pedra: 0, alimento: 3 }, walkable: false },
+  oceano: { name: 'Oceano', resources: { madeira: 0, pedra: 0, alimento: 0 }, walkable: false },
   ruinas: { name: 'Ruínas', resources: { madeira: 1, pedra: 3, alimento: 0 }, walkable: true }
 };
 export const COSTS = {
   abrigo: { madeira: 3, pedra: 1 },
   fogueira: { madeira: 1, pedra: 1 },
   marco: { pedra: 2 },
-  horta: { madeira: 1, alimento: 1 }
+  horta: { madeira: 1, alimento: 1 },
+  jangada: { madeira: 5, pedra: 1 }
 };
 export const tileKey = ({ q, r }) => `${q},${r}`;
 export const axialDistance = (a, b) => Math.max(Math.abs(a.q-b.q), Math.abs(a.r-b.r), Math.abs((a.q+a.r)-(b.q+b.r)));
@@ -60,14 +63,31 @@ export function validateWorld(world) {
   const seen = new Set();
   for (const hex of world.hexes) {
     const k = tileKey(hex);
-    if (!integer(hex.q) || !integer(hex.r) || seen.has(k) || axialDistance(hex,{q:0,r:0}) > world.radius || !TERRAINS[hex.terrain]) throw new Error(`Hexágono inválido: ${k}`);
+    if (!integer(hex.q) || !integer(hex.r) || seen.has(k) || axialDistance(hex,{q:0,r:0}) > Math.max(world.radius,ATLAS_RADIUS) || !TERRAINS[hex.terrain]) throw new Error(`Hexágono inválido: ${k}`);
     seen.add(k);
+    if (axialDistance(hex,{q:0,r:0}) > world.radius) {
+      const canonical=buildAtlas(world.seed).get(hex.q,hex.r);
+      if (!canonical || canonical.terrain!==hex.terrain || canonical.biome!==hex.biome ||
+          canonical.region!==hex.region) throw new Error('Geografia externa divergente do atlas canônico.');
+    }
     if (typeof hex.discovered !== 'boolean' || typeof hex.visited !== 'boolean' || !Array.isArray(hex.structures) || typeof hex.name !== 'string') throw new Error(`Dados de hexágono inválidos: ${k}`);
     for (const res of Object.keys(TERRAINS.campina.resources)) if (!integer(hex.resources?.[res]) || hex.resources[res] < 0) throw new Error(`Recursos inválidos: ${k}`);
   }
   if (!integer(world.player.position.q) || !integer(world.player.position.r) || !seen.has(tileKey(world.player.position))) throw new Error('Jogador fora do mapa.');
   if (!integer(energyOf(world)) || energyOf(world) < 0 || energyOf(world) > ENERGY_MAX) throw new Error('Energia inválida.');
   for (const res of ['madeira','pedra','alimento']) if (!integer(world.player.inventory[res]) || world.player.inventory[res] < 0) throw new Error('Inventário inválido.');
+  if (world.player.vessel !== undefined && world.player.vessel !== 'jangada') throw new Error('Embarcação não autorizada.');
+  if (world.discoveries !== undefined) {
+    if (!Array.isArray(world.discoveries)) throw new Error('Catálogo de descobertas inválido.');
+    const ids=new Set();
+    const atlas=buildAtlas(world.seed);
+    for (const id of world.discoveries) {
+      if (typeof id!=='string' || ids.has(id)) throw new Error('Descoberta duplicada ou inválida.');
+      ids.add(id);
+      const site=atlas.sites.find(s=>s.id===id);
+      if (!site || !world.hexes.some(h=>h.q===site.q && h.r===site.r && h.visited)) throw new Error('Descoberta sem visita verificada.');
+    }
+  }
   if (world.manifestations !== undefined) {
     if (!Array.isArray(world.manifestations) || world.manifestations.length > world.hexes.length) throw new Error('Manifestações inválidas.');
     const locations = new Set();
@@ -91,22 +111,51 @@ export function simulateJourney(original, journey) {
   const world = structuredClone(original);
   world.player.energy = energyOf(original);
   const byKey = new Map(world.hexes.map(h => [tileKey(h),h]));
+  const ensureHex=(q,r)=>{
+    const key=tileKey({q,r});
+    if(byKey.has(key))return byKey.get(key);
+    if(!isInAtlas(q,r))return null;
+    const created=generatedHex(world.seed,q,r);
+    world.hexes.push(created);byKey.set(key,created);
+    return created;
+  };
   let position = { ...world.player.position };
   const rests = [];
+  const discoveredSites=[];
   let moves = 0;
   for (const event of journey) {
-    if (event?.type === 'mover') {
+    if (event?.type === 'mover' || event?.type === 'navegar') {
       exactKeys(event, ['type','q','r']);
       if (!integer(event.q) || !integer(event.r)) throw new Error('Coordenada de movimento inválida.');
-      const hex = byKey.get(tileKey(event));
-      if (!hex || axialDistance(position,event) !== 1 || !TERRAINS[hex.terrain].walkable) throw new Error(`Passo proibido: ${tileKey(event)}.`);
-      if (world.player.energy < 1) throw new Error('Energia esgotada. Descanse antes de caminhar.');
-      world.player.energy -= 1;
-      hex.discovered = true;
-      hex.visited = true;
-      for (const near of world.hexes) if (axialDistance(event,near) <= 1) near.discovered = true;
-      position = {q:event.q,r:event.r};
-      moves += 1;
+      const key=tileKey(event);
+      const source=byKey.get(tileKey(position));
+      let hex=byKey.get(key);
+      if(!hex && isInAtlas(event.q,event.r))hex=generatedHex(world.seed,event.q,event.r);
+      if (!hex || axialDistance(position,event)!==1) throw new Error(`Passo proibido: ${key}.`);
+      const water=!TERRAINS[hex.terrain].walkable;
+      if (event.type==='navegar') {
+        if (world.player.vessel!=='jangada') throw new Error('Navegação exige jangada construída.');
+        if (!water && TERRAINS[source.terrain].walkable) throw new Error('Navegação exige águas adjacentes.');
+      } else if (water) throw new Error(`Passo proibido: ${key}.`);
+      const energyCost=event.type==='navegar'?2:1;
+      if (world.player.energy < energyCost) throw new Error('Energia esgotada. Descanse antes de caminhar.');
+      const reached=ensureHex(event.q,event.r);
+      world.player.energy-=energyCost;
+      reached.discovered=true;
+      reached.visited=true;
+      for(const near of world.hexes)if(axialDistance(event,near)<=1)near.discovered=true;
+      for(const [dq,dr] of [[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]]) {
+        const neighbor=ensureHex(event.q+dq,event.r+dr);
+        if(neighbor)neighbor.discovered=true;
+      }
+      const site=buildAtlas(world.seed).siteAt(event.q,event.r);
+      if(site && !world.discoveries?.includes(site.id)){
+        world.discoveries ??=[];
+        world.discoveries.push(site.id);
+        discoveredSites.push(site);
+      }
+      position={q:event.q,r:event.r};
+      moves+=1;
     } else if (event?.type === 'descansar') {
       exactKeys(event, ['type']);
       if (world.player.energy !== 0) throw new Error('Descanso permitido somente com energia esgotada.');
@@ -119,7 +168,7 @@ export function simulateJourney(original, journey) {
   }
   world.player.position = position;
   validateWorld(world);
-  return {world, rests, moves};
+  return {world, rests, moves, discoveredSites};
 }
 /** As reações são decisões do agente executor, nunca código livre enviado pelo jogador. */
 const INTENSITIES = ['sutil', 'media', 'alta'];
@@ -202,7 +251,7 @@ export function applyProposal(original, proposal) {
     exactKeys(step,['q','r']);
     return {type:'mover',q:step.q,r:step.r};
   }) : proposal.journey;
-  const {world, rests} = simulateJourney(original,journey);
+  const {world, rests, discoveredSites} = simulateJourney(original,journey);
   const action = proposal.action;
   exactKeys(action, ['type','resource','amount','structure','name']);
   if (!Object.hasOwn(ACTION_ENERGY,action.type)) throw new Error('Ação não permitida.');
@@ -216,7 +265,8 @@ export function applyProposal(original, proposal) {
   const inventory = world.player.inventory;
   const beforeAction = reaction?.effect.type === 'vetar_acao' ? {
     inventory: structuredClone(inventory), resources: structuredClone(here.resources),
-    structures: [...here.structures], name: here.name, energy: world.player.energy
+    structures: [...here.structures], name: here.name, energy: world.player.energy,
+    vessel:world.player.vessel
   } : null;
   if (action.type === 'coletar') {
     if (!['madeira','pedra','alimento'].includes(action.resource) || !integer(action.amount) || action.amount < 1 || action.amount > 3) throw new Error('Coleta inválida: recurso e quantidade de 1 a 3 exigidos.');
@@ -227,9 +277,20 @@ export function applyProposal(original, proposal) {
     if (!Object.hasOwn(COSTS, action.structure)) throw new Error('Construção não permitida.');
     if (here.structures.includes(action.structure)) throw new Error('Estrutura já existe neste local.');
     if (action.structure === 'horta' && !['campina','floresta'].includes(here.terrain)) throw new Error('Horta exige campina ou floresta.');
+    if (action.structure === 'jangada') {
+      const coast=[[1,0],[0,1],[-1,1],[-1,0],[0,-1],[1,-1]]
+        .some(([dq,dr])=>{
+          const neighbor=world.hexes.find(h=>h.q===here.q+dq&&h.r===here.r+dr);
+          const kind=neighbor?.terrain ?? buildAtlas(world.seed).get(here.q+dq,here.r+dr)?.terrain;
+          return kind==='oceano'||kind==='lago';
+        });
+      if(!coast)throw new Error('Jangada só pode ser construída próximo de água.');
+      if(world.player.vessel==='jangada')throw new Error('O Viajante já possui uma jangada.');
+    }
     for (const [resource, amount] of Object.entries(COSTS[action.structure])) if (inventory[resource] < amount) throw new Error(`Falta ${resource} para construir.`);
     for (const [resource, amount] of Object.entries(COSTS[action.structure])) inventory[resource] -= amount;
     here.structures.push(action.structure);
+    if(action.structure==='jangada')world.player.vessel='jangada';
   } else if (action.type === 'nomear') {
     if (!cleanText(action.name, 36)) throw new Error('Nome do local inválido (até 36 caracteres).');
     here.name = action.name.trim();
@@ -242,11 +303,19 @@ export function applyProposal(original, proposal) {
     here.resources = beforeAction.resources;
     here.structures = beforeAction.structures;
     here.name = beforeAction.name;
+    if(beforeAction.vessel===undefined)delete world.player.vessel;
+    else world.player.vessel=beforeAction.vessel;
   } else if (reaction) {
     applyReactionEffect(world, reaction, proposal.commandId, action.type);
   }
   world.revision += 1;
   rests.forEach((rest,i) => world.events.push({id:`${proposal.commandId}_descanso_${i+1}`,day:rest.day,title:'Descanso concluído',text:'O viajante recuperou as forças e um novo dia começou.',q:rest.q,r:rest.r}));
+  discoveredSites.forEach((site,i)=>world.events.push({
+    id:`${proposal.commandId}_descoberta_${i+1}`,day:world.day,
+    title:'Descoberta: '+site.name,
+    text:'Um vestígio foi encontrado e registrado no atlas do ERMO.',
+    q:site.q,r:site.r,kind:'discovery'
+  }));
   world.events.push({
     id:proposal.commandId, day:world.day,
     title: veto ? 'Intenção contrariada pelo mundo' : proposal.commitMessage.trim(),
