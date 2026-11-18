@@ -4,6 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { applyProposal } from '../engine.mjs';
+import { renderWorldContext } from './world-context.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const file = process.argv[2];
@@ -23,7 +24,8 @@ if (!file) {
     console.log(`Ação: ${proposal.action.type} | ${proposal.commitMessage}`);
     if (apply) {
       await writeFile(path.join(root,'world.json'),JSON.stringify(updated,null,2)+'\n','utf8');
-      console.log('APLICADO: world.json atualizado. Ainda não foi feito commit/push.');
+      await writeFile(path.join(root,'WORLD_CONTEXT.md'),renderWorldContext(updated),'utf8');
+      console.log('APLICADO: world.json e WORLD_CONTEXT.md atualizados. Ainda não foi feito commit/push.');
     } else {
       console.log('DRY RUN: não houve alteração. Acrescente --apply para persistir.');
     }
