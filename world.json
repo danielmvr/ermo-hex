@@ -1,19 +1,19 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 0,
-  "day": 1,
+  "revision": 1,
+  "day": 2,
   "seed": "ermo-001",
   "radius": 5,
   "player": {
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": 0,
-      "r": 0
+      "q": 4,
+      "r": -1
     },
     "inventory": {
-      "madeira": 3,
-      "pedra": 2,
+      "madeira": 0,
+      "pedra": 1,
       "alimento": 2
     }
   },
@@ -807,7 +807,7 @@
       "r": 0,
       "terrain": "floresta",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -820,7 +820,7 @@
       "q": 1,
       "r": 1,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -932,7 +932,7 @@
       "q": 2,
       "r": -1,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -946,8 +946,8 @@
       "q": 2,
       "r": 0,
       "terrain": "colinas",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -960,7 +960,7 @@
       "q": 2,
       "r": 1,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1044,7 +1044,7 @@
       "q": 3,
       "r": -2,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1058,8 +1058,8 @@
       "q": 3,
       "r": -1,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
@@ -1072,7 +1072,7 @@
       "q": 3,
       "r": 0,
       "terrain": "lago",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1156,7 +1156,7 @@
       "q": 4,
       "r": -2,
       "terrain": "floresta",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1170,21 +1170,23 @@
       "q": 4,
       "r": -1,
       "terrain": "floresta",
-      "discovered": false,
-      "visited": false,
+      "discovered": true,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 7,
         "pedra": 1,
         "alimento": 2
       },
-      "structures": []
+      "structures": [
+        "abrigo"
+      ]
     },
     {
       "q": 4,
       "r": 0,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1254,7 +1256,7 @@
       "q": 5,
       "r": -2,
       "terrain": "campina",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1268,7 +1270,7 @@
       "q": 5,
       "r": -1,
       "terrain": "colinas",
-      "discovered": false,
+      "discovered": true,
       "visited": false,
       "name": "",
       "resources": {
@@ -1301,6 +1303,14 @@
       "text": "Um viajante acordou em uma terra sem nome. O resto ainda não aconteceu.",
       "q": 0,
       "r": 0
+    },
+    {
+      "id": "acao_mwmaeahq_j7yy44",
+      "day": 2,
+      "title": "mundo: construir primeiro abrigo na futura vila",
+      "text": "O Viajante escolhe a floresta para iniciar sua futura vila. Com 3 madeiras e 1 pedra de seu inventário, ergue o primeiro abrigo. Ainda não há uma vila, mas agora existe um lugar para começar.",
+      "q": 4,
+      "r": -1
     }
   ]
 }
