@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildAtlas, ATLAS_CELLS, ATLAS_RADIUS, LAND_TARGET, FRESH_TARGET, OCEAN_TARGET, CONTINENTS, ARCHIPELAGOS, BIOMES, CULTURES, FAUNA, FLORA, SITE_QUOTAS, atlasDistance, generatedHex } from './world-geography.mjs';
-import { visibleHexes, knownEnvironment, discoverySummary } from './world-view.mjs';
+import { buildAtlas, ATLAS_CELLS, ATLAS_RADIUS, LAND_TARGET, FRESH_TARGET, OCEAN_TARGET, CONTINENTS, ARCHIPELAGOS, BIOMES, CULTURES, FAUNA, FLORA, SITE_QUOTAS, atlasDistance, generatedHex } from '../world-geography.mjs';
+import { visibleHexes, knownEnvironment, discoverySummary } from '../world-view.mjs';
 const w=buildAtlas('ermo-001');
 test('atlas com 10.981 células e quotas exatas',()=>{
  assert.equal(w.statistics.total,ATLAS_CELLS);

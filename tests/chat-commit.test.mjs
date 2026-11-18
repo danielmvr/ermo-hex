@@ -15,7 +15,7 @@ function invoke(dir, cmd, args, expected = 0) {
 }
 function sandbox() {
   const dir = mkdtempSync(join(tmpdir(), 'ermo-test-'));
-  for (const f of ['engine.mjs','world.json','.gitignore']) cpSync(join(root,f),join(dir,f));
+  for (const f of ['engine.mjs','world-geography.mjs','world.json','.gitignore']) cpSync(join(root,f),join(dir,f));
   for (const f of ['scripts/chat-commit.mjs','tests/engine.test.mjs','tests/chat-commit.test.mjs']) {
     const dest=join(dir,f);
     mkdirSync(dirname(dest),{recursive:true});
