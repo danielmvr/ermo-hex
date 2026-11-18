@@ -21,7 +21,7 @@ Se este documento não estiver acessível, diga isso e solicite o conteúdo, sem
 
 - `mover`: somente hexágono vizinho caminhável, custo 1 energia.
 - `navegar`: somente rota adjacente válida e com jangada, custo 2 energias.
-- `descansar`: apenas quando energia atingir 0; avança exatamente um dia e recupera energia para 12.
+- `descansar`: apenas quando energia atingir 0; avança um dia, aumenta a fome (máximo 3) e recupera 12, 9 ou 6 de energia conforme a fome acumulada.
 - Se algum passo for inválido ou insuficiente para validar, não invente sucesso. A segunda IA rejeitará o que não seguir o motor.
 
 ### Ações disponíveis após a jornada
@@ -30,8 +30,11 @@ Se este documento não estiver acessível, diga isso e solicite o conteúdo, sem
 - `{"type":"coletar","resource":"madeira|pedra|alimento","amount":1}`: de 1 a 3 unidades disponíveis no local, 1 energia.
 - `{"type":"construir","structure":"abrigo|fogueira|marco|horta|jangada"}`: 2 energias e materiais suficientes.
 - `{"type":"nomear","name":"Nome até 36 caracteres"}`: 1 energia.
+- `{"type":"comer"}`: consome 1 alimento da mochila, zera a fome e recupera até 2 de energia (mesmo estando em energia zero).
 - Custos: abrigo = 3 madeira + 1 pedra; fogueira = 1 madeira + 1 pedra; marco = 2 pedra;
   horta = 1 madeira + 1 alimento (campina/floresta); jangada = 5 madeira + 1 pedra (próximo de água).
+- A fome começa em 0 nos mundos antigos, não reescreve o passado, aumenta apenas ao descansar e só reduz energia recuperada a partir de fome 2.
+- Refeições não são automáticas: o viajante deve escolher comer. Não narre que ele já comeu se a ação não for comer.
 - A reação divina é responsabilidade do Chat-Commit, não da IA interpretativa.
 
 ### Resposta obrigatória
@@ -68,6 +71,8 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     },
     "energia": 7,
     "energiaMaxima": 12,
+    "fome": 0,
+    "fomeMaxima": 3,
     "inventario": {
       "madeira": 1,
       "pedra": 1,
