@@ -1,0 +1,92 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 6,
+  "commandId": "acao_mwml79q0_bnon0kfg",
+  "journey": [
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -14
+    },
+    {
+      "type": "mover",
+      "q": 11,
+      "r": -15
+    },
+    {
+      "type": "mover",
+      "q": 10,
+      "r": -15
+    },
+    {
+      "type": "mover",
+      "q": 9,
+      "r": -15
+    },
+    {
+      "type": "mover",
+      "q": 8,
+      "r": -15
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -15
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -16
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -17
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -18
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": 6,
+      "r": -17
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -17
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -16
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -17
+    }
+  ],
+  "action": {
+    "type": "comer"
+  },
+  "story": "Após a longa jornada, o Viajante decide consumir uma unidade de alimento da mochila para saciar a fome e recuperar forças. A investigação do Vestígio Regional 155 permanece sem confirmação nesta ação.",
+  "commitMessage": "mundo: viajante realiza refeição após longa jornada",
+  "reaction": {
+    "intensity": "sutil",
+    "verdict": "surpreender",
+    "title": "O silêncio depois da fome",
+    "text": "O alimento traz alívio ao corpo cansado. O mundo não oferece respostas sobre o vestígio: desta vez, recuperar forças já é uma pequena conquista.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
