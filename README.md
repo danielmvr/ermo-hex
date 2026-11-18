@@ -1,106 +1,73 @@
-# ERMO | Experimento Hex + Chat-Commit
+# ERMO | Mundo persistente + Chat-Commit v0.3
 
-**Uma pessoa. Um mundo hexagonal. Cada interação confirmada vira um commit.**
+**Um personagem, mapa hexagonal, energia e dias acionados pelo descanso.**
 
-Experimento para navegador, sem API paga: um jogador explora 91 hexágonos e envia mensagens de até 100 caracteres ao ChatGPT. Uma segunda IA ou um workflow do GitHub recebe a resposta JSON, valida a ação, altera `world.json`, faz commit e publica o novo estado.
+Jogo público: https://danielmvr.github.io/ermo-hex/
+Repositório: https://github.com/danielmvr/ermo-hex
 
-## Início rápido
+## Persistência em duas camadas
 
-**Local (Windows)**: execute `iniciar-windows.bat` com Python instalado ou `py -m http.server 8000`, e abra `http://localhost:8000`.
+1. **Autosave no navegador:** posição, hexágonos descobertos/visitados, energia, descansos e diálogo ficam salvos automaticamente em `localStorage`. Atualizar ou fechar a aba **no mesmo navegador/perfil** preserva a jornada pendente. O jogo também guarda a última versão de `world.json` para uso offline.
+2. **Mundo oficial online:** `world.json` no GitHub é a fonte de verdade, publicada no GitHub Pages. Para sincronizar a jornada com outros dispositivos, é obrigatório confirmá-la pelo Chat-Commit. Não existe token GitHub no navegador nem endpoint público de escrita. O navegador não publica commits sozinho.
+3. Após commit, o jogo encontra o `commandId` no histórico, limpa o rascunho correspondente e carrega posição/dia/energia da nova revisão. Se o GitHub avançar por outro commit, o rascunho não é forçado sobre a revisão nova; é movido para backup local de conflito.
 
-**GitHub online**: confira [GUIA_GITHUB.md](GUIA_GITHUB.md). Crie o repositório `danielmvr/ermo-hex`, envie estes arquivos, habilite `Settings → Pages → Source: GitHub Actions` e rode `ERMO | Publicar mundo`. A página esperada será `https://danielmvr.github.io/ermo-hex/` depois da publicação bem-sucedida.
+**Atenção:** limpar dados do site, usar outro navegador/dispositivo ou navegar anonimamente pode apagar o rascunho. Apenas commits confirmados são persistência global. Este é o próximo limite técnico para uma futura integração com backend autenticado.
 
-**Agente Chat-Commit**: use o prompt completo em [CHAT_COMMIT_START.md](CHAT_COMMIT_START.md) como primeira mensagem de uma conversa com uma IA que disponha de ferramentas de programação e GitHub. A partir daí, cole diretamente as respostas JSON do chatbot do jogo.
+## Energia e calendário
 
-## Fluxo para a primeira interação
+- Energia máxima: **12**. Cada hexágono caminhado consome **1**.
+- Ações interpretadas: coletar **1**, construir **2**, nomear **1**, observar **0** pontos.
+- Em **energia 0**, o botão **Descansar · +1 dia** é habilitado. Descansar restaura para 12 e **avança exatamente um dia**.
+- Caminhar, conversar e confirmar ações **não** avançam o calendário por si só.
+- Máximo de **60 eventos** de caminhada/descanso por jornada ainda não confirmada; registre um commit para continuar.
+- Mundos criados antes da energia carregam com **12/12** sem perder o estado existente; a energia é gravada no próximo commit.
 
-1. Entre no mapa, clique em hexágonos adjacentes para caminhar (lagos não são atravessáveis).
-2. Escreva a intenção do jogador em até 100 caracteres.
-3. Clique em **Conversar com a inteligência**. O navegador abre `https://chatgpt.com/?q=...` com o contexto embutido. Dependendo da interface, confira o texto e pressione Enter. Há também **Copiar contexto completo**.
-4. O primeiro ChatGPT deve responder com **JSON puro**. Copie a resposta inteira.
-5. Cole no **Chat-Commit** conectado ao GitHub. Depois de ativada a automação, o agente cria `proposals/inbox/<commandId>.json` na `main` e o workflow inicia automaticamente. Alternativa manual: no GitHub, `Actions → ERMO | Chat-Commit manual → Run workflow`; cole JSON em `proposal_json` e execute.
-6. Aguarde o sucesso do workflow de commit e publicação. Clique em **↻ Recarregar** no jogo. O novo estado vem do `world.json` versionado.
+## Como jogar e registrar uma jornada
 
-> O código de atualização do mundo já está pronto. A sincronização via GitHub e a URL pública dependem da criação do repositório e da configuração de Pages. Não foi instalada nenhuma API paga.
+1. Abra o mapa e caminhe clicando em hexágonos vizinhos. O progresso é salvo no navegador a cada passo.
+2. Quando a energia atingir zero, use **Descansar**. O dia avança na prévia local, e sobreviverá ao refresh.
+3. Para persistir a movimentação e os descansos **sem diálogo**, clique em **Copiar jornada para Chat-Commit**. O botão cria uma proposta `ermo.action.v2` com `journey` e ação `observar`.
+4. Para interagir com a IA, digite até **100 caracteres**, clique em **Conversar com a inteligência**, confira e envie o contexto no ChatGPT. A resposta deve ser um objeto JSON `ermo.action.v2`.
+5. Entregue o JSON ao agente preparado com [CHAT_COMMIT_START.md](CHAT_COMMIT_START.md), ou abra [ERMO | Chat-Commit manual](https://github.com/danielmvr/ermo-hex/actions/workflows/chat-commit.yml) → **Run workflow** → `proposal_json`.
+6. Após os workflows de commit e publicação concluírem, clique **↻ Recarregar** no jogo. O navegador reconcilia o rascunho com o mundo remoto.
 
-## Contrato JSON da IA interpretativa
+## Contrato do ChatGPT v0.3
 
 ```json
 {
-  "schema": "ermo.action.v1",
-  "baseRevision": 0,
-  "commandId": "acao_demo_001",
-  "movement": [],
-  "action": { "type": "coletar", "resource": "madeira", "amount": 2 },
-  "story": "O viajante recolheu dois feixes de madeira.",
-  "commitMessage": "mundo: recolher madeira"
+  "schema": "ermo.action.v2",
+  "baseRevision": 1,
+  "commandId": "acao_exemplo_001",
+  "journey": [
+    { "type": "mover", "q": 4, "r": 0 },
+    { "type": "descansar" }
+  ],
+  "action": { "type": "observar" },
+  "story": "O viajante observou a paisagem após descansar.",
+  "commitMessage": "mundo: registrar exploração e descanso"
 }
 ```
 
-`baseRevision`, `commandId` e `movement` têm de ser copiados do contexto emitido pelo mapa. O agente não pode inventá-los. O schema aceita uma ação por commit:
+O exemplo acima é **ilustrativo**, não uma proposta executável no estado atual. `baseRevision`, `commandId` e `journey` devem ser copiados **exatamente** do contexto gerado no jogo. O motor recalcula deslocamento, gasto de energia, dias e recursos. A IA nunca dita diretamente os valores resultantes.
 
-| Tipo de ação | Parâmetros | Regra |
-|---|---|---|
-| `coletar` | `resource`: `madeira`, `pedra` ou `alimento`; `amount`: 1 a 3 | Não exceder os recursos do hexágono |
-| `construir` | `structure`: `abrigo`, `fogueira`, `marco` ou `horta` | Consumir materiais da mochila |
-| `nomear` | `name`: nome de 1 a 36 caracteres | Nomeia local atual |
-| `observar` | nenhum | Cria evento sem alterar recursos |
+Propostas legadas `ermo.action.v1` continuam aceitas, mas sem a capacidade de representar descansos entre passos. Versão atual: `v2`.
 
-Custos: abrigo 3 madeira + 1 pedra; fogueira 1 madeira + 1 pedra; marco 2 pedra; horta 1 madeira + 1 alimento (apenas campina ou floresta). Toda ação confirmada avança uma revisão e um dia. `world.json` é a verdade canônica: a fala do jogador não altera arquivos nem regras por si só.
-
-## Chat-Commit em ambiente local com Git
-
-O script `scripts/chat-commit.mjs` impede alterações fora de `world.json`. Requer Node.js 22+ e Git configurado, diretório limpo e repositório inicializado:
+## Comandos e arquivos
 
 ```bash
-# Executa todos os testes
 node --test tests/*.test.mjs
-
-# Verifica a proposta sem alterações
 node scripts/chat-commit.mjs proposta.json --dry-run
-
-# Valida, modifica world.json, testa, commita e publica no remoto
 node scripts/chat-commit.mjs proposta.json --push
 ```
 
-Ele rejeita JSON malformado, schema diferente, revisões obsoletas, IDs duplicados, movimentos impossíveis, recursos insuficientes, propriedades extras e repositórios sujos. `proposta.json` está ignorado em `.gitignore`. Em caso de erro antes do commit, restaura `world.json` original. Se falhar somente o push, o commit local permanece e a publicação não deve ser anunciada como concluída.
+O executor exige Git limpo, bloqueia revisão obsoleta, teletransporte, descanso com energia positiva, gastos indevidos e recursos inexistentes. Apenas `world.json` pode ser alterado por uma ação do jogador.
 
-## Automação GitHub Actions
+- `engine.mjs`: regras e validação de propostas `v1/v2`.
+- `persistence.mjs`: cache remoto, autosave, restauro e reconciliação.
+- `app.mjs`, `index.html`, `styles.css`: mapa, UI de energia/descanso e ChatGPT.
+- `world.json`: estado canônico versionado; **não reinicializar em deploys**.
+- `scripts/chat-commit.mjs`: validador + Git commit/push.
+- `.github/workflows/chat-commit.yml`: entrada manual e publicação.
+- `tests/*.test.mjs`: testes de motor, Git e persistência.
 
-- `ci.yml`: roda testes na subida normal de arquivos e em Pull Requests.
-- `chat-commit.yml`: entrada manual por `proposal_json` **ou** gatilho de novo arquivo `proposals/inbox/*.json`; validação, commit automático e chamada explícita do deploy.
-- `pages.yml`: publica **somente** os cinco arquivos públicos construídos em `dist/`, ignorando pushes que apenas enviam JSON ao inbox (antes de o mundo ser validado).
-
-O uso de Pages por `GitHub Actions` é importante: commits criados pelo `GITHUB_TOKEN` dentro do workflow não provocam automaticamente um deploy por gatilho `push`. Por isso o Chat-Commit chama o publicador diretamente.
-
-## Estrutura
-
-| Arquivo | Função |
-|---|---|
-| `index.html`, `styles.css`, `app.mjs` | Interface, mapa, movimentação e conversa |
-| `engine.mjs` | Regras determinísticas compartilhadas |
-| `world.json` | Mundo canônico persistente |
-| `scripts/chat-commit.mjs` | Validação, testes, commit e push |
-| `scripts/apply-commit.mjs` | Validação e aplicação sem Git (ferramenta auxiliar) |
-| `scripts/select-inbox.mjs` | Verifica um único JSON novo recebido via GitHub e prepara `proposta.json` sem executar texto |
-| `scripts/build-site.mjs` | Prepara conteúdo seguro para Pages |
-| `tests/*.test.mjs` | Testes do motor e do Chat-Commit |
-| `CHAT_COMMIT_START.md` | Prompt pronto para o agente executor |
-| `GUIA_GITHUB.md` | Passo a passo de publicação |
-| `.github/workflows/*.yml` | CI, commit manual e Pages |
-
-## Entrada automática pelo GitHub (após mesclar o PR de automação)
-
-O Chat-Commit com conexão GitHub pode receber um JSON válido e criar **somente** um arquivo novo em `proposals/inbox/<commandId>.json`, diretamente na branch `main`, usando a API de arquivos do GitHub. Essa é uma entrada pública e auditável, **não é um commit de mundo**: a revisão só muda após o motor oficial validar a proposta no workflow.
-
-O push desse arquivo dispara `ERMO | Chat-Commit manual` automaticamente; o workflow confere que **exatamente um JSON foi adicionado**, que o nome coincide com `commandId`, executa todos os testes, faz `--dry-run`, usa `scripts/chat-commit.mjs --push` para alterar **somente** `world.json` e, após sucesso, chama Pages. Se o JSON for rejeitado ou o push falhar, o workflow falha e não publica uma consequência nova. O JSON enviado permanece no histórico do repositório, inclusive se for rejeitado.
-
-Use uma interação por vez: **confirme o commit e o deploy antes de enviar outra proposta**; não tente reutilizar `commandId`. O GitHub pode enfileirar execuções, mas a validação de `baseRevision` sempre protege a versão canônica. Não inclua dados pessoais, tokens ou segredos, já que o repositório é público. A automação exige que a conexão GitHub disponha de escrita em arquivos, que o push dessa conexão dispare Actions e que o `GITHUB_TOKEN` tenha `contents: write`. Caso não esteja ativo, use o `workflow_dispatch` manual.
-
-## Limites da prova de conceito
-
-- Um jogador, nenhum bot e nenhuma IA em execução contínua no servidor.
-- Movimento e descoberta ficam **locais e pendentes** até que uma proposta seja validada e commitada.
-- O mapa gerado contém regiões desconhecidas que não são enviadas no prompt da primeira IA.
-- O chatbot recebe somente contexto textual e devolve uma ação declarativa. **Não recebe permissão para escrever JavaScript ou modificar as próprias regras do jogo.** Implementação de novas funcionalidades de software exige uma tarefa de desenvolvimento separada, com testes e revisão.
-- Não coloque dados pessoais ou segredos em mensagens, URL `?q=` ou estado público.
+Este protótipo tem somente um jogador e nenhum bot. Nenhuma credencial ou API paga é exposta no cliente.

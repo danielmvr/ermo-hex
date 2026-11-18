@@ -17,7 +17,7 @@
 <main class="app-shell">
   <section class="world-head">
     <div><div class="eyebrow">EXPERIMENTO 001 <span class="thin-line"></span> UM ÚNICO VIAJANTE</div><h1>A primeira <em>terra.</em></h1><p>O mundo não responde com uma aventura pronta. Ele espera sua primeira decisão.</p></div>
-    <div class="day-card"><span>CRÔNICA ATUAL</span><strong id="day">Dia 1</strong><small>O tempo avança a cada mudança confirmada.</small></div>
+    <div class="day-card"><span>CRÔNICA ATUAL</span><strong id="day">Dia 1</strong><small id="day-note">Somente o descanso avança o calendário.</small></div>
   </section>
   <div class="main-grid">
     <section class="map-section" aria-label="Mapa hexagonal interativo">
@@ -42,6 +42,14 @@
         <div class="resource-line" id="tile-resources">Madeira 2 · Pedra 1 · Alimento 5</div>
         <div class="inventory"><span>MOCHILA</span><div><span><b id="madeira">3</b> Madeira</span><span><b id="pedra">2</b> Pedra</span><span><b id="alimento">2</b> Alimento</span></div></div>
       </section>
+      <section class="info-panel energy-panel" aria-label="Energia e descanso">
+        <div class="panel-title"><span>✦ &nbsp; FÔLEGO DO VIAJANTE</span><span id="energy-value" class="energy-number">12/12</span></div>
+        <div class="energy-inner">
+          <progress id="energy-meter" max="12" value="12" aria-label="Energia atual"></progress>
+          <p>Andar custa 1 energia por hexágono. Descanse somente quando ela acabar. Cada descanso inicia um novo dia.</p>
+          <button id="rest-btn" class="rest-btn" type="button" disabled>DESCANSAR · +1 DIA</button>
+        </div>
+      </section>
       <section class="info-panel action-panel">
         <div class="panel-title"><span>✦ &nbsp; SUA PRÓXIMA DECISÃO</span><span class="micro">ATÉ 100 CARACTERES</span></div>
         <label for="dialogue">O que você diz ou tenta fazer?</label>
@@ -49,8 +57,9 @@
         <div class="counter"><span>Fale livremente. A IA interpreta a intenção.</span><strong id="counter">0/100</strong></div>
         <button id="open-chat" class="main-action" type="button">CONVERSAR COM A INTELIGÊNCIA <span>↗</span></button>
         <button id="copy-prompt" class="secondary-action" type="button">Copiar contexto completo</button>
+        <button id="save-journey" class="secondary-action" type="button" hidden>Copiar jornada para Chat-Commit</button>
         <p class="workflow-note">Abre o ChatGPT com mundo + movimento + fala. A resposta é um JSON para a segunda IA validar e transformar em commit.</p>
-        <div id="local-warning" class="local-warning" hidden>↳ Sua exploração ainda não foi gravada. Inclua os passos na próxima interação.</div>
+        <div id="local-warning" class="local-warning" hidden></div>
       </section>
       <section class="info-panel timeline-panel">
         <div class="panel-title"><span>⌁ &nbsp; ACONTECIMENTOS</span><button id="refresh-world" class="refresh-btn" type="button" title="Recarregar o estado após o commit">↻ Recarregar</button></div>
@@ -59,7 +68,7 @@
     </aside>
   </div>
 </main>
-<footer><span>ERMO / UMA CRÔNICA ESCRITA EM COMMITS</span><span>PROTÓTIPO LOCAL · SEM API PAGA</span></footer>
+<footer><span>ERMO / UMA CRÔNICA ESCRITA EM COMMITS</span><span>RASCUNHO SALVO NO NAVEGADOR · MUNDO OFICIAL NO GITHUB</span></footer>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script type="module" src="./app.mjs"></script>
 </body>
