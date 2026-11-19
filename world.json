@@ -1,22 +1,22 @@
 {
   "schema": "ermo.world.v1",
-  "revision": 8,
-  "day": 10,
+  "revision": 9,
+  "day": 11,
   "seed": "ermo-001",
   "radius": 5,
   "player": {
     "id": "pioneiro",
     "name": "Viajante",
     "position": {
-      "q": -4,
-      "r": -23
+      "q": -15,
+      "r": -20
     },
     "inventory": {
-      "madeira": 1,
+      "madeira": 4,
       "pedra": 1,
       "alimento": 1
     },
-    "energy": 9,
+    "energy": 5,
     "hunger": 0,
     "lastMealDay": 10
   },
@@ -3384,7 +3384,7 @@
       "biome": "campina",
       "region": "origem",
       "discovered": true,
-      "visited": false,
+      "visited": true,
       "name": "",
       "resources": {
         "madeira": 2,
@@ -3502,6 +3502,630 @@
         "madeira": 2,
         "pedra": 1,
         "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -5,
+      "r": -21,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -6,
+      "r": -21,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -6,
+      "r": -20,
+      "terrain": "campina",
+      "biome": "campina",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      },
+      "structures": []
+    },
+    {
+      "q": -7,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -7,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -7,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -8,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -8,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -8,
+      "r": -18,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -9,
+      "r": -18,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -9,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -10,
+      "r": -18,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -10,
+      "r": -19,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -9,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -10,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -9,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -8,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -11,
+      "r": -19,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -11,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -10,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -12,
+      "r": -19,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -12,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -11,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -13,
+      "r": -19,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -13,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -12,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -14,
+      "r": -19,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -14,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -13,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -15,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -15,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 4,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -14,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -16,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": true,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -16,
+      "r": -20,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -15,
+      "r": -21,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -15,
+      "r": -18,
+      "terrain": "lago",
+      "biome": "lago",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      },
+      "structures": []
+    },
+    {
+      "q": -16,
+      "r": -18,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -17,
+      "r": -18,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      },
+      "structures": []
+    },
+    {
+      "q": -17,
+      "r": -19,
+      "terrain": "floresta",
+      "biome": "floresta-temperada",
+      "region": "origem",
+      "discovered": true,
+      "visited": false,
+      "name": "",
+      "resources": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
       },
       "structures": []
     }
@@ -3747,6 +4371,43 @@
       "intensity": "sutil",
       "verdict": "surpreender",
       "effect": "nenhum"
+    },
+    {
+      "id": "acao_mwnkj448_acsaapwc_descanso_1",
+      "day": 11,
+      "title": "Descanso concluído",
+      "text": "O Viajante descansou e iniciou um novo dia. A fome agora é 0/3.",
+      "q": -12,
+      "r": -20
+    },
+    {
+      "id": "acao_mwnkj448_acsaapwc_descoberta_1",
+      "day": 11,
+      "title": "Descoberta: Vestígio Regional 300",
+      "text": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": -15,
+      "r": -20,
+      "kind": "discovery"
+    },
+    {
+      "id": "acao_mwnkj448_acsaapwc",
+      "day": 11,
+      "title": "mundo: coletar madeira e idealizar carrinho",
+      "text": "Na floresta, o Viajante recolhe 3 madeiras disponíveis. Imagina construir um carrinho para facilitar futuras coletas, mas ainda não possui essa tecnologia. Nenhuma coleta automática é realizada.",
+      "q": -15,
+      "r": -20
+    },
+    {
+      "id": "acao_mwnkj448_acsaapwc_reacao",
+      "day": 11,
+      "title": "Uma ideia toma forma",
+      "text": "Três peças de madeira não fazem um carrinho por si só. A intenção permanece viva, à espera de ferramentas e de uma forma de construção que o mundo ainda desconhece.",
+      "q": -15,
+      "r": -20,
+      "kind": "divine",
+      "intensity": "sutil",
+      "verdict": "surpreender",
+      "effect": "nenhum"
     }
   ],
   "discoveries": [
@@ -3754,6 +4415,7 @@
     "regional-255",
     "regional-018",
     "regional-155",
-    "ruina-004"
+    "ruina-004",
+    "regional-300"
   ]
 }

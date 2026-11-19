@@ -42,7 +42,7 @@ Se este documento não estiver acessível, diga isso e solicite o conteúdo, sem
 Responda com **um único objeto JSON válido**, sem Markdown e sem texto ao redor, neste contrato:
 
 ```json
-{"schema":"ermo.action.v2","baseRevision":8,"commandId":"id_da_jornada","journey":[],"action":{"type":"observar"},"story":"Consequência factual com até 240 caracteres","commitMessage":"mundo: síntese com até 72 caracteres"}
+{"schema":"ermo.action.v2","baseRevision":9,"commandId":"id_da_jornada","journey":[],"action":{"type":"observar"},"story":"Consequência factual com até 240 caracteres","commitMessage":"mundo: síntese com até 72 caracteres"}
 ```
 
 **Copie exatamente `baseRevision`, `commandId` e `journey` da mensagem recebida**, mesmo quando diferentes dos valores ilustrativos. Escolha somente `action`, `story` e `commitMessage`.
@@ -53,8 +53,8 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
 ```json
 {
   "schema": "ermo.context.v1",
-  "revision": 8,
-  "dia": 10,
+  "revision": 9,
+  "dia": 11,
   "seed": "ermo-001",
   "raioHistorico": 5,
   "atlas": {
@@ -66,34 +66,478 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     "id": "pioneiro",
     "nome": "Viajante",
     "posicao": {
-      "q": -4,
-      "r": -23
+      "q": -15,
+      "r": -20
     },
-    "energia": 9,
+    "energia": 5,
     "energiaMaxima": 12,
     "fome": 0,
     "fomeMaxima": 3,
     "ultimaRefeicaoDia": 10,
     "inventario": {
-      "madeira": 1,
+      "madeira": 4,
       "pedra": 1,
       "alimento": 1
     },
     "embarcacao": null
   },
   "terrenoAtual": {
-    "q": -4,
-    "r": -23,
-    "terreno": "campina",
+    "q": -15,
+    "r": -20,
+    "terreno": "floresta",
     "recursos": {
-      "madeira": 2,
+      "madeira": 4,
       "pedra": 1,
-      "alimento": 5
+      "alimento": 2
     },
     "construcoes": [],
     "nome": null
   },
   "hexagonosRevelados": [
+    {
+      "q": -17,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -17,
+      "r": -18,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -16,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -16,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -16,
+      "r": -18,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -15,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -15,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 4,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -15,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -15,
+      "r": -18,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -14,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -14,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -14,
+      "r": -19,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -13,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -13,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -13,
+      "r": -19,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -12,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -12,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -12,
+      "r": -19,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -11,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -11,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -11,
+      "r": -19,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -10,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -10,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -10,
+      "r": -19,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -10,
+      "r": -18,
+      "terreno": "lago",
+      "bioma": "lago",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 0,
+        "pedra": 0,
+        "alimento": 3
+      }
+    },
+    {
+      "q": -9,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -9,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -9,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -9,
+      "r": -18,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -8,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -8,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -8,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -8,
+      "r": -18,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -7,
+      "r": -21,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -7,
+      "r": -20,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
+    {
+      "q": -7,
+      "r": -19,
+      "terreno": "floresta",
+      "bioma": "floresta-temperada",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 7,
+        "pedra": 1,
+        "alimento": 2
+      }
+    },
     {
       "q": -6,
       "r": -23,
@@ -116,6 +560,31 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
         "madeira": 7,
         "pedra": 1,
         "alimento": 2
+      }
+    },
+    {
+      "q": -6,
+      "r": -21,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": -6,
+      "r": -20,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
       }
     },
     {
@@ -146,6 +615,19 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     {
       "q": -5,
       "r": -22,
+      "terreno": "campina",
+      "bioma": "campina",
+      "regiao": "origem",
+      "visitado": true,
+      "recursos": {
+        "madeira": 2,
+        "pedra": 1,
+        "alimento": 5
+      }
+    },
+    {
+      "q": -5,
+      "r": -21,
       "terreno": "campina",
       "bioma": "campina",
       "regiao": "origem",
@@ -2579,39 +3061,10 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
     "regional-255",
     "regional-018",
     "regional-155",
-    "ruina-004"
+    "ruina-004",
+    "regional-300"
   ],
   "eventosRecentes": [
-    {
-      "dia": 6,
-      "titulo": "A primeira lei da fome",
-      "descricao": "O mundo passa a registrar a necessidade de comer. Um descanso sem refeição deixa a fome em 1/3. Os três alimentos permanecem na mochila: somente uma refeição escolhida poderá saciá-lo.",
-      "q": 11,
-      "r": -13,
-      "tipo": "divine"
-    },
-    {
-      "dia": 7,
-      "titulo": "Descanso concluído",
-      "descricao": "O Viajante descansou, mas a fome acumulada reduziu seu fôlego a 9/12.",
-      "q": 11,
-      "r": -13
-    },
-    {
-      "dia": 8,
-      "titulo": "Descanso concluído",
-      "descricao": "O Viajante descansou, mas a fome acumulada reduziu seu fôlego a 6/12.",
-      "q": 7,
-      "r": -18
-    },
-    {
-      "dia": 8,
-      "titulo": "Descoberta: Vestígio Regional 18",
-      "descricao": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
-      "q": 10,
-      "r": -15,
-      "tipo": "discovery"
-    },
     {
       "dia": 8,
       "titulo": "Descoberta: Vestígio Regional 155",
@@ -2670,6 +3123,36 @@ Não confunda a revisão do arquivo com a revisão fornecida no link; se divergi
       "descricao": "O Complexo de Ruínas 04 foi localizado, mas não compreendido. O mundo permanece quieto enquanto o Viajante recupera as forças para escolher seu próximo passo.",
       "q": -4,
       "r": -23,
+      "tipo": "divine"
+    },
+    {
+      "dia": 11,
+      "titulo": "Descanso concluído",
+      "descricao": "O Viajante descansou e iniciou um novo dia. A fome agora é 0/3.",
+      "q": -12,
+      "r": -20
+    },
+    {
+      "dia": 11,
+      "titulo": "Descoberta: Vestígio Regional 300",
+      "descricao": "Um vestígio foi encontrado e registrado no atlas do ERMO.",
+      "q": -15,
+      "r": -20,
+      "tipo": "discovery"
+    },
+    {
+      "dia": 11,
+      "titulo": "mundo: coletar madeira e idealizar carrinho",
+      "descricao": "Na floresta, o Viajante recolhe 3 madeiras disponíveis. Imagina construir um carrinho para facilitar futuras coletas, mas ainda não possui essa tecnologia. Nenhuma coleta automática é realizada.",
+      "q": -15,
+      "r": -20
+    },
+    {
+      "dia": 11,
+      "titulo": "Uma ideia toma forma",
+      "descricao": "Três peças de madeira não fazem um carrinho por si só. A intenção permanece viva, à espera de ferramentas e de uma forma de construção que o mundo ainda desconhece.",
+      "q": -15,
+      "r": -20,
       "tipo": "divine"
     }
   ]
