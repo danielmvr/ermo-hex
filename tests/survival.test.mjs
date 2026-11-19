@@ -123,6 +123,8 @@ test('diagnóstico: avaliar a rota da revisão canônica 5 sem modificar o mundo
   w.player.energy=7;
   w.player.hunger=0;
   w.day=5;
+  // O snapshot histórico não herda refeições registradas em dias posteriores.
+  delete w.player.lastMealDay;
   const result=simulateJourney(w,journey);
   assert.deepEqual(result.world.player.position,{q:11,r:-13});
   assert.equal(result.world.day,6);
