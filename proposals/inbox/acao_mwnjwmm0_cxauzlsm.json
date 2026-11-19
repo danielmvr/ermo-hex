@@ -1,0 +1,132 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 7,
+  "commandId": "acao_mwnjwmm0_cxauzlsm",
+  "journey": [
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -18
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": 7,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": 6,
+      "r": -20
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": 5,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -21
+    },
+    {
+      "type": "mover",
+      "q": 4,
+      "r": -22
+    },
+    {
+      "type": "mover",
+      "q": 3,
+      "r": -22
+    },
+    {
+      "type": "mover",
+      "q": 3,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": 2,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": 1,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": 0,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -1,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -2,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": -23
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": -4,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -5,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -4,
+      "r": -23
+    },
+    {
+      "type": "mover",
+      "q": -3,
+      "r": -24
+    },
+    {
+      "type": "mover",
+      "q": -4,
+      "r": -23
+    }
+  ],
+  "action": {
+    "type": "comer"
+  },
+  "story": "O Viajante chega ao Complexo de Ruínas 04 e prioriza uma refeição. Consome um alimento para saciar a fome e recuperar forças. O sítio é descoberto, mas nenhuma escavação ou investigação foi realizada.",
+  "commitMessage": "mundo: viajante prioriza refeição antes de investigar ruínas",
+  "reaction": {
+    "intensity": "sutil",
+    "verdict": "surpreender",
+    "title": "A espera das ruínas",
+    "text": "O Complexo de Ruínas 04 foi localizado, mas não compreendido. O mundo permanece quieto enquanto o Viajante recupera as forças para escolher seu próximo passo.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
