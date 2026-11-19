@@ -1,0 +1,122 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 9,
+  "commandId": "acao_mwnkxcgw_l38s4xja",
+  "journey": [
+    {
+      "type": "mover",
+      "q": -16,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": -17,
+      "r": -18
+    },
+    {
+      "type": "mover",
+      "q": -18,
+      "r": -17
+    },
+    {
+      "type": "mover",
+      "q": -19,
+      "r": -16
+    },
+    {
+      "type": "mover",
+      "q": -20,
+      "r": -15
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -14
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -13
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -12
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -11
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -10
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -9
+    },
+    {
+      "type": "mover",
+      "q": -21,
+      "r": -8
+    },
+    {
+      "type": "mover",
+      "q": -22,
+      "r": -7
+    },
+    {
+      "type": "mover",
+      "q": -23,
+      "r": -6
+    },
+    {
+      "type": "mover",
+      "q": -24,
+      "r": -5
+    },
+    {
+      "type": "mover",
+      "q": -25,
+      "r": -4
+    },
+    {
+      "type": "mover",
+      "q": -24,
+      "r": -4
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": -23,
+      "r": -4
+    },
+    {
+      "type": "mover",
+      "q": -24,
+      "r": -3
+    }
+  ],
+  "action": {
+    "type": "comer"
+  },
+  "story": "O Viajante prioriza uma refeição, consumindo o alimento da mochila para saciar a fome e recuperar energia. Deseja reunir madeira e pedra, mas fabricar ferramentas ainda não é uma ação disponível.",
+  "commitMessage": "mundo: viajante prioriza refeição e planeja ferramentas",
+  "reaction": {
+    "intensity": "sutil",
+    "verdict": "surpreender",
+    "title": "O peso do que falta",
+    "text": "A refeição devolve forças ao Viajante, mas sua mochila fica sem mantimentos. O mundo não entrega ferramentas prontas: suas ideias ainda exigem tempo, materiais e aprendizado.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
