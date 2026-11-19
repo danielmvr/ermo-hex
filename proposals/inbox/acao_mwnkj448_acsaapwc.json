@@ -1,0 +1,101 @@
+{
+  "schema": "ermo.action.v3",
+  "baseRevision": 8,
+  "commandId": "acao_mwnkj448_acsaapwc",
+  "journey": [
+    {
+      "type": "mover",
+      "q": -5,
+      "r": -22
+    },
+    {
+      "type": "mover",
+      "q": -6,
+      "r": -21
+    },
+    {
+      "type": "mover",
+      "q": -7,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -8,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": -9,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": -9,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -10,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -11,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -12,
+      "r": -20
+    },
+    {
+      "type": "descansar"
+    },
+    {
+      "type": "mover",
+      "q": -13,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -14,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -15,
+      "r": -20
+    },
+    {
+      "type": "mover",
+      "q": -15,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": -16,
+      "r": -19
+    },
+    {
+      "type": "mover",
+      "q": -15,
+      "r": -20
+    }
+  ],
+  "action": {
+    "type": "coletar",
+    "resource": "madeira",
+    "amount": 3
+  },
+  "story": "Na floresta, o Viajante recolhe 3 madeiras disponíveis. Imagina construir um carrinho para facilitar futuras coletas, mas ainda não possui essa tecnologia. Nenhuma coleta automática é realizada.",
+  "commitMessage": "mundo: coletar madeira e idealizar carrinho",
+  "reaction": {
+    "intensity": "sutil",
+    "verdict": "surpreender",
+    "title": "Uma ideia toma forma",
+    "text": "Três peças de madeira não fazem um carrinho por si só. A intenção permanece viva, à espera de ferramentas e de uma forma de construção que o mundo ainda desconhece.",
+    "effect": {
+      "type": "nenhum"
+    }
+  }
+}
